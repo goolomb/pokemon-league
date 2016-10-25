@@ -14,3 +14,4 @@ hs_err_pid*
 # Idea
 .idea
 pokemon-league.iml
+persistence/persistence.iml
