@@ -44,6 +44,10 @@ public class Trainer {
     private List<Pokemon> pokemons = new ArrayList<Pokemon>();
 
     
+    public Trainer(Long trainerId) {
+        this.id = trainerId;
+    }
+    
     public Trainer() {
     }
 
@@ -88,9 +92,13 @@ public class Trainer {
         return this;
     }
     
-    /*public void addBadge(Badge badge) {
+    public void addBadge(Badge badge) {
         badges.add(badge);
-    }*/
+    }
+    
+    public void removeGadge(Badge badge) {
+        badges.remove(badge);
+    }
 
     public List<Pokemon> getPokemons() {
         return Collections.unmodifiableList(pokemons);
@@ -101,9 +109,13 @@ public class Trainer {
         return this;
     }
 
-    /*public void addPokemon(Pokemon pokemon) {
+    public void addPokemon(Pokemon pokemon) {
         pokemons.add(pokemon);
-    }*/
+    }
+    
+    public void removePokemon(Pokemon pokemon) {
+        pokemons.remove(pokemon);
+    }
 
     @Override
     public int hashCode() {
