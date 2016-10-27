@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.dao;
 
 import cz.muni.fi.pa165.entity.Pokemon;
+import cz.muni.fi.pa165.entity.Trainer;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
