@@ -4,7 +4,7 @@ import cz.muni.fi.pa165.enums.PokemonType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +28,7 @@ public class Pokemon {
 
     @NotNull
     @ElementCollection(targetClass=PokemonType.class)
-    private List<PokemonType> type;
+    private List<PokemonType> type = new ArrayList<PokemonType>();
 
     @Column
     private int level;
@@ -64,11 +64,11 @@ public class Pokemon {
         this.nickname = nickname;
     }
 
-    public Collection<PokemonType> getType() {
+    public List<PokemonType> getType() {
         return type;
     }
 
-    public void setType(Collection<PokemonType> type) {
+    public void setType(List<PokemonType> type) {
         this.type = type;
     }
 
