@@ -56,59 +56,62 @@ public class Trainer {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public Trainer setFirstName(String firstName) {
         this.firstName = firstName;
+        return this;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public Trainer setLastName(String lastName) {
         this.lastName = lastName;
+        return this;
     }
 
     public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public Trainer setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
+        return this;
     }
 
     public List<Badge> getBadges() {
         return Collections.unmodifiableList(badges);
     }
 
-    public void setBadges(List<Badge> badges) {
+    public Trainer setBadges(List<Badge> badges) {
         this.badges = badges;
+        return this;
     }
     
-    public void addBadge(Badge badge) {
+    /*public void addBadge(Badge badge) {
         badges.add(badge);
-    }
+    }*/
 
     public List<Pokemon> getPokemons() {
         return Collections.unmodifiableList(pokemons);
     }
 
-    public void setPokemons(List<Pokemon> pokemons) {
+    public Trainer setPokemons(List<Pokemon> pokemons) {
         this.pokemons = pokemons;
+        return this;
     }
 
-    public void addPokemon(Pokemon pokemon) {
+    /*public void addPokemon(Pokemon pokemon) {
         pokemons.add(pokemon);
-    }
+    }*/
 
     @Override
     public int hashCode() {
         final int prime = 43;
         int hash = 7;
-        hash = prime * hash + (this.firstName != null ? this.firstName.hashCode() : 0);
-        hash = prime * hash + (this.lastName != null ? this.lastName.hashCode() : 0);
-        hash = prime * hash + (this.birthDate != null ? this.birthDate.hashCode() : 0);
-        hash = prime * hash + (this.badges != null ? this.badges.hashCode() : 0);
-        hash = prime * hash + (this.pokemons != null ? this.pokemons.hashCode() : 0);
+        hash = prime * hash + getFirstName().hashCode();
+        hash = prime * hash + getLastName().hashCode();
+        hash = prime * hash + getBirthDate().hashCode();
         return hash;
     }
 
@@ -127,12 +130,6 @@ public class Trainer {
             return false;
         }
         if (getBirthDate() != other.getBirthDate() && (getBirthDate() == null || !getBirthDate().equals(other.getBirthDate()))) {
-            return false;
-        }
-        if (getBadges() != other.getBadges() && (getBadges() == null || !getBadges().equals(other.getBadges()))) {
-            return false;
-        }
-        if (getPokemons() != other.getPokemons() && (getPokemons() == null || !getPokemons().equals(other.getPokemons()))) {
             return false;
         }
         return true;
