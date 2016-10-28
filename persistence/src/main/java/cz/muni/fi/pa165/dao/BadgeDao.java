@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.dao;
 
 import cz.muni.fi.pa165.entity.Badge;
+import cz.muni.fi.pa165.entity.Trainer;
 import java.util.List;
 
 /**
@@ -23,6 +24,13 @@ public interface BadgeDao {
      * @return all badges
      */
     public List<Badge> findAll();
+
+    /**
+     * Returns badges from the database belonging to specified trainer. 
+     * @param trainer owner of badges
+     * @return list of badges belonging to specified trainer
+     */
+    public List<Badge> findByTrainer(Trainer trainer);
     
     /**
      * Adds new badge to the database.
