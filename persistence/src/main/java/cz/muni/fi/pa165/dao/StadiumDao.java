@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.dao;
 
-import cz.fi.muni.pa165.entity.Trainer;
+import cz.muni.fi.pa165.entity.Trainer;
 import cz.muni.fi.pa165.entity.Stadium;
 import java.util.List;
 

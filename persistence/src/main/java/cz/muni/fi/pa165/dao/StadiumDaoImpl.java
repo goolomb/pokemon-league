@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.dao;
 
 import cz.muni.fi.pa165.entity.Stadium;
+import cz.muni.fi.pa165.entity.Trainer;
 import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.EntityManager;
