@@ -8,7 +8,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- *
+* DAO implementation for Trainer
+*
  * @author Martin Golomb
  */
 @Repository
@@ -34,13 +35,13 @@ public class TrainerDaoImpl implements TrainerDao {
     }
 
     @Override
-    public void delete(Long id) {
-        em.remove(findById(id));
+    public void delete(Trainer trainer) {
+        em.remove(trainer);
     }
 
     @Override
-    public void update(Trainer trainer) {
-        em.merge(trainer);
+    public Trainer update(Trainer trainer) {
+        return em.merge(trainer);
     }
     
 }
