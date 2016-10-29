@@ -1,15 +1,15 @@
 package cz.muni.fi.pa165.entity;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 /**
- * Trainer Entity
+ * Entity class represents trainer with pokemons and badges
  *
  * @author Martin Golomb
  */
@@ -37,82 +37,153 @@ public class Trainer {
     
     @OneToMany
     @NotNull
-    private List<Badge> badges = new ArrayList<Badge>();
+    private Set<Badge> badges = new HashSet<Badge>();
     
     @OneToMany
     @NotNull
-    private List<Pokemon> pokemons = new ArrayList<Pokemon>();
+    private Set<Pokemon> pokemons = new HashSet<Pokemon>();
 
     
+    /**
+     * Constructor with parameter id
+     * @param trainerId id to set new Trainer
+     */
     public Trainer(Long trainerId) {
         this.id = trainerId;
     }
     
+    /**
+     * Constructor without parameters for new Trainer
+     */
     public Trainer() {
     }
 
-    
+    /**
+     * Method returns id of Trainer
+     * @return id of Trainer
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Method returns first name of Trainer
+     * @return firstName of Trainer
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * Method sets first name of Trainer
+     * @param firstName first name of Trainer
+     * @return this Trainer
+     */
     public Trainer setFirstName(String firstName) {
         this.firstName = firstName;
         return this;
     }
 
+    /**
+     * Method returns last name of Trainer
+     * @return lastName of Trainer
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     * Method sets last name of Trainer
+     * @param lastName last name of Trainer
+     * @return this Trainer
+     */
     public Trainer setLastName(String lastName) {
         this.lastName = lastName;
         return this;
     }
 
+    /**
+     * Method return birth date of Trainer
+     * @return birthDate of Trainer
+     */
     public Date getBirthDate() {
         return birthDate;
     }
 
+    /**
+     * Method sets birth date of Trainer
+     * @param birthDate birth date of Trainer
+     * @return this Trainer
+     */
     public Trainer setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
         return this;
     }
 
-    public List<Badge> getBadges() {
-        return Collections.unmodifiableList(badges);
+    /**
+     * Method returns badges of Trainer
+     * @return collection of badges of Trainer
+     */
+    public Set<Badge> getBadges() {
+        return Collections.unmodifiableSet(badges);
     }
 
-    public Trainer setBadges(List<Badge> badges) {
+    /**
+     * Method sets badges to Trainer
+     * @param badges badges to Trainer
+     * @return this Trainer
+     */
+    public Trainer setBadges(Set<Badge> badges) {
         this.badges = badges;
         return this;
     }
     
+    /**
+     * Method adds badge to Trainer
+     * @param badge new badge to be added Trainer
+     */
     public void addBadge(Badge badge) {
         badges.add(badge);
     }
     
-    public void removeGadge(Badge badge) {
+    /**
+     * Method removes badge from Trainer
+     * @param badge badge to be removed from Trainer
+     */
+    public void removeBadge(Badge badge) {
         badges.remove(badge);
     }
 
-    public List<Pokemon> getPokemons() {
-        return Collections.unmodifiableList(pokemons);
+    /**
+     * Method returns pokemons of Trainer
+     * @return collection of pokemons of Trainer
+     */
+    public Set<Pokemon> getPokemons() {
+        return Collections.unmodifiableSet(pokemons);
     }
 
-    public Trainer setPokemons(List<Pokemon> pokemons) {
+    /**
+     * Method sets pokemons to Trainer
+     * @param pokemons pokemons to Trainer
+     * @return this Trainer
+     */
+    public Trainer setPokemons(Set<Pokemon> pokemons) {
         this.pokemons = pokemons;
         return this;
     }
 
+    /**
+     * Method adds pokemon to Trainer
+     * @param pokemon new pokemon to be added Trainer
+     */
     public void addPokemon(Pokemon pokemon) {
         pokemons.add(pokemon);
     }
     
+    /**
+     * Method removes pokemon from Trainer
+     * @param pokemon pokemon to be removed from Trainer
+     */
     public void removePokemon(Pokemon pokemon) {
         pokemons.remove(pokemon);
     }
