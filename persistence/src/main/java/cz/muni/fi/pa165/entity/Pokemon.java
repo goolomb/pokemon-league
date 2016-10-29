@@ -4,8 +4,8 @@ import cz.muni.fi.pa165.enums.PokemonType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Pokemon entity
@@ -28,7 +28,7 @@ public class Pokemon {
 
     @NotNull
     @ElementCollection(targetClass=PokemonType.class)
-    private List<PokemonType> type = new ArrayList<PokemonType>();
+    private Set<PokemonType> type = new HashSet<PokemonType>();
 
     @Column
     private int level;
@@ -64,11 +64,11 @@ public class Pokemon {
         this.nickname = nickname;
     }
 
-    public List<PokemonType> getType() {
+    public Set<PokemonType> getType() {
         return type;
     }
 
-    public void setType(List<PokemonType> type) {
+    public void setType(Set<PokemonType> type) {
         this.type = type;
     }
 
@@ -91,16 +91,25 @@ public class Pokemon {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || !(o instanceof Pokemon)) return false;
 
         Pokemon pokemon = (Pokemon) o;
 
         if (level != pokemon.level) return false;
-        if (!id.equals(pokemon.id)) return false;
-        if (!name.equals(pokemon.name)) return false;
-        if (!nickname.equals(pokemon.nickname)) return false;
-        if (!type.equals(pokemon.type)) return false;
-        return trainer != null ? trainer.equals(pokemon.trainer) : pokemon.trainer == null;
+        if (getName() == null ? pokemon.getName() != null : !getName().equals(pokemon.getName())) {
+            return false;
+        }
+        if (getNickname() == null ? pokemon.getNickname() != null : !getNickname().equals(pokemon.getNickname())) {
+            return false;
+        }
+        if (!getType().equals(pokemon.getType())) {
+            return false;
+        }
+        if (getTrainer() == null ? pokemon.getTrainer() != null : !getTrainer().equals(pokemon.getTrainer())) {
+            return false;
+        }
+
+        return true;
 
     }
 
