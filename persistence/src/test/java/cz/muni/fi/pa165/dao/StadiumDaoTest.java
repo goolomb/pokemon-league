@@ -3,13 +3,17 @@ package cz.muni.fi.pa165.dao;
 import cz.muni.fi.pa165.PersistenceApplicationContext;
 import cz.muni.fi.pa165.entity.Stadium;
 import cz.muni.fi.pa165.entity.Trainer;
+import cz.muni.fi.pa165.enums.PokemonType;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.Calendar;
 import java.util.List;
+import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -36,6 +40,7 @@ public class StadiumDaoTest extends AbstractTestNGSpringContextTests {
     public void testCreate() {
         Stadium stadium = new Stadium();
         stadium.setCity("Emerald");
+        stadium.addType(PokemonType.BUG);
 
         Assert.assertNull(stadium.getId());
 
@@ -48,9 +53,10 @@ public class StadiumDaoTest extends AbstractTestNGSpringContextTests {
     public void testDelete() {
         Stadium stadium = new Stadium();
         stadium.setCity("Pallet");
+        stadium.addType(PokemonType.DARK);
         Stadium toBeRemoved = new Stadium();
         toBeRemoved.setCity("Viridian");
-
+        toBeRemoved.addType(PokemonType.BUG);
         stadiumDao.create(stadium);
         stadiumDao.create(toBeRemoved);
 
@@ -68,8 +74,10 @@ public class StadiumDaoTest extends AbstractTestNGSpringContextTests {
     public void testFindAll() {
         Stadium stadium1 = new Stadium();
         stadium1.setCity("Lavender");
+        stadium1.addType(PokemonType.DRAGON);
         Stadium stadium2 = new Stadium();
         stadium2.setCity("Fuchsia");
+        stadium2.addType(PokemonType.FAIRY);
 
         stadiumDao.create(stadium1);
         stadiumDao.create(stadium2);
@@ -93,9 +101,11 @@ public class StadiumDaoTest extends AbstractTestNGSpringContextTests {
         
         Stadium stadium1 = new Stadium();
         stadium1.setCity("Saffron");
+        stadium1.addType(PokemonType.FIRE);
         Stadium stadium2 = new Stadium();
         stadium2.setCity("Pewter");
         stadium2.setLeader(trainer);
+        stadium2.addType(PokemonType.FAIRY);
 
         stadiumDao.create(stadium1);
         stadiumDao.create(stadium2);
@@ -108,9 +118,11 @@ public class StadiumDaoTest extends AbstractTestNGSpringContextTests {
     public void testUpdate() {
         Stadium stadium1 = new Stadium();
         stadium1.setCity("Red");
+        stadium1.addType(PokemonType.FAIRY);
 
         Stadium stadium2 = new Stadium();
         stadium2.setCity("Blue");
+        stadium2.addType(PokemonType.FIRE);
 
         stadiumDao.create(stadium1);
         stadiumDao.create(stadium2);
@@ -125,5 +137,36 @@ public class StadiumDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(stadium1.getCity(), changedStadium.getCity());
         Assert.assertEquals(stadium1, changedStadium);
     }
+
+    @Test(expectedExceptions = ConstraintViolationException.class)
+    public void testCreateStadiumWithNullCity() {
+        Stadium stadium = new Stadium();
+        stadium.setCity(null);
+        stadium.addType(PokemonType.FIRE);
+
+        stadiumDao.create(stadium);
+    }
+
+    @Test(expectedExceptions = ConstraintViolationException.class)
+    public void testCreateStadiumNoType() {
+        Stadium stadium = new Stadium();
+        stadium.setCity("Pebble");
+
+        stadiumDao.create(stadium);
+    }
+
+    @Test(expectedExceptions = PersistenceException.class)
+    public void testCreateStadiumUniqueness() {
+        Stadium stadium1 = new Stadium();
+        stadium1.setCity("Black");
+        stadium1.addType(PokemonType.DARK);
+        Stadium stadium2 = new Stadium();
+        stadium2.setCity("Black");
+        stadium2.addType(PokemonType.GHOST);
+
+        stadiumDao.create(stadium1);
+        stadiumDao.create(stadium2);
+    }
+
 
 }
