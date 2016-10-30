@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165;
 
+import cz.muni.fi.pa165.dao.StadiumDao;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -25,6 +26,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories
+@ComponentScan(basePackageClasses = {StadiumDao.class})
 public class PersistenceApplicationContext {
 
     /**

@@ -17,3 +17,4 @@ pokemon-league.iml
 persistence/persistence.iml
 
 persistence/target/*
+/persistence/nbproject/

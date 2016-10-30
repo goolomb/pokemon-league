@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.dao;
 
+import cz.muni.fi.pa165.PersistenceApplicationContext;
 import cz.muni.fi.pa165.entity.Stadium;
 import cz.muni.fi.pa165.entity.Trainer;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -8,15 +9,27 @@ import org.testng.annotations.Test;
 
 import java.util.Calendar;
 import java.util.List;
+import javax.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 /**
  * Tests for Stadium Data Access Object
  *
  * @author Martina Minatova
  */
+
+@ContextConfiguration(classes = PersistenceApplicationContext.class)
+@TestExecutionListeners(TransactionalTestExecutionListener.class)
+@Transactional
 public class StadiumDaoTest extends AbstractTestNGSpringContextTests {
 
-    StadiumDao stadiumDao = new StadiumDaoImpl();
+    @Autowired
+    private StadiumDao stadiumDao;
+    @Autowired
+    private TrainerDao trainerDao;
 
 
     @Test
@@ -36,7 +49,7 @@ public class StadiumDaoTest extends AbstractTestNGSpringContextTests {
         Stadium stadium = new Stadium();
         stadium.setCity("Pallet");
         Stadium toBeRemoved = new Stadium();
-        stadium.setCity("Viridian");
+        toBeRemoved.setCity("Viridian");
 
         stadiumDao.create(stadium);
         stadiumDao.create(toBeRemoved);
@@ -76,7 +89,8 @@ public class StadiumDaoTest extends AbstractTestNGSpringContextTests {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2000,10,30); //YYYY,MM,DD
         trainer.setBirthDate(calendar.getTime());
-
+        trainerDao.create(trainer);
+        
         Stadium stadium1 = new Stadium();
         stadium1.setCity("Saffron");
         Stadium stadium2 = new Stadium();

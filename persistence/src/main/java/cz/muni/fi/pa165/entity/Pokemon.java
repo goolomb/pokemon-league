@@ -67,6 +67,14 @@ public class Pokemon {
     public Set<PokemonType> getType() {
         return type;
     }
+    
+    public void addType(PokemonType type) {
+        this.type.add(type);
+    }
+    
+    public void removeType(PokemonType type) {
+        this.type.remove(type);
+    }
 
     public void setType(Set<PokemonType> type) {
         this.type = type;
@@ -115,7 +123,7 @@ public class Pokemon {
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
+        int result = 1;
         result = 31 * result + name.hashCode();
         result = 17 * result + nickname.hashCode();
         result = 53 * result + type.hashCode();

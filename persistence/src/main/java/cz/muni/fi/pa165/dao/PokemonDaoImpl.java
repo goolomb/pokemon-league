@@ -7,12 +7,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import org.springframework.stereotype.Repository;
 
 /**
  * Implementation of Pokemon Data Access Object
  *
  * @author Martina Minatova
  */
+@Repository
 public class PokemonDaoImpl implements PokemonDao {
 
     @PersistenceContext

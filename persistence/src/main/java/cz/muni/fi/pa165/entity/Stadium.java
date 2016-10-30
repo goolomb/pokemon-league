@@ -1,23 +1,39 @@
 package cz.muni.fi.pa165.entity;
 
+import cz.muni.fi.pa165.enums.PokemonType;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 /**
  * Stadium entity
  *
  * @author Jakub Holy
  */
+
 @Entity
 public class Stadium {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @NotNull
+    @Column(nullable = false, unique = true)
     private String city;
-    private String type;
+    
+
+    @ElementCollection(targetClass=PokemonType.class)
+    private Set<PokemonType> type = new HashSet<PokemonType>();
+    
+    @OneToOne
     private Trainer leader;
 
     public Long getId() {
@@ -36,11 +52,19 @@ public class Stadium {
         this.city = city;
     }
 
-    public String getType() {
+    public Set<PokemonType> getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void addType(PokemonType type) {
+        this.type.add(type);
+    }
+    
+    public void removeType(PokemonType type) {
+        this.type.remove(type);
+    }
+
+    public void setType(Set<PokemonType> type) {
         this.type = type;
     }
 

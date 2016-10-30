@@ -42,7 +42,7 @@ public class StadiumDaoImpl implements StadiumDao{
     @Override
     public Stadium findByTrainer(Trainer trainer) {
         try{
-        return em.createQuery("select s from Stadium s where trainer = :trainer",
+        return em.createQuery("select s from Stadium s where leader = :trainer",
                 Stadium.class).setParameter("trainer", trainer).getSingleResult();
         }catch(NoResultException nre){
             return null;
@@ -50,8 +50,8 @@ public class StadiumDaoImpl implements StadiumDao{
     }
 
     @Override
-    public void update(Stadium stadium) {
-        em.merge(stadium);
+    public Stadium update(Stadium stadium) {
+        return em.merge(stadium);
     }
     
     
