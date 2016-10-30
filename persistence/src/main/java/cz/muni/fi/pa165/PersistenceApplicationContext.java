@@ -29,13 +29,6 @@ import javax.sql.DataSource;
 @ComponentScan(basePackageClasses = {StadiumDao.class})
 public class PersistenceApplicationContext {
 
-    /**
-     * Enables automatic translation of exceptions to DataAccessExceptions.
-     */
-    @Bean
-    public PersistenceExceptionTranslationPostProcessor postProcessor() {
-        return new PersistenceExceptionTranslationPostProcessor();
-    }
 
     @Bean
     public JpaTransactionManager transactionManager() {
@@ -49,20 +42,10 @@ public class PersistenceApplicationContext {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean jpaFactoryBean = new LocalContainerEntityManagerFactoryBean();
         jpaFactoryBean.setDataSource(db());
-        jpaFactoryBean.setLoadTimeWeaver(instrumentationLoadTimeWeaver());
         jpaFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
         return jpaFactoryBean;
     }
 
-    @Bean
-    public LocalValidatorFactoryBean localValidatorFactoryBean() {
-        return new LocalValidatorFactoryBean();
-    }
-
-    @Bean
-    public LoadTimeWeaver instrumentationLoadTimeWeaver() {
-        return new InstrumentationLoadTimeWeaver();
-    }
 
     @Bean
     public DataSource db() {
