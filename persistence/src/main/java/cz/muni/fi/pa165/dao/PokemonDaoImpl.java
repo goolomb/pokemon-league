@@ -60,7 +60,7 @@ public class PokemonDaoImpl implements PokemonDao {
     }
 
     @Override
-    public void update(Pokemon pokemon) {
-        em.merge(pokemon);
+    public Pokemon update(Pokemon pokemon) {
+        return em.merge(pokemon);
     }
 }
