@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.entity;
 
 import cz.muni.fi.pa165.enums.PokemonType;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -27,6 +28,7 @@ public class Pokemon {
     private String nickname;
 
     @NotNull
+    @NotEmpty
     @ElementCollection(targetClass=PokemonType.class)
     private Set<PokemonType> type = new HashSet<PokemonType>();
 
