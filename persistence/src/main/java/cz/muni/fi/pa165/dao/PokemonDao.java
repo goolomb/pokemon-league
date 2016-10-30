@@ -46,6 +46,7 @@ public interface PokemonDao {
     /**
      * Updates given pokemon in database
      * @param pokemon pokemon to be updated
+     * @return updated Pokemon
      */
-    public void update(Pokemon pokemon);
+    public Pokemon update(Pokemon pokemon);
 }
