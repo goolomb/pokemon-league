@@ -36,11 +36,11 @@ public class Trainer {
     private Date birthDate;
     
     @OneToMany
-    @NotNull
+    @ElementCollection(targetClass=Badge.class)
     private Set<Badge> badges = new HashSet<Badge>();
     
     @OneToMany
-    @NotNull
+    @ElementCollection(targetClass=Pokemon.class)
     private Set<Pokemon> pokemons = new HashSet<Pokemon>();
 
     
