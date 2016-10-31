@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -21,9 +22,11 @@ public class Badge {
     private Long id;
     
     @OneToOne
+    @NotNull
     private Stadium origin;
     
     @ManyToOne
+    @NotNull
     private Trainer trainer;
 
     public void setId(Long id) {
