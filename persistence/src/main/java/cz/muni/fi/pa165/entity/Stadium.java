@@ -1,6 +1,8 @@
 package cz.muni.fi.pa165.entity;
 
 import cz.muni.fi.pa165.enums.PokemonType;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -29,7 +31,7 @@ public class Stadium {
     @Column(nullable = false, unique = true)
     private String city;
     
-
+    @NotEmpty
     @ElementCollection(targetClass=PokemonType.class)
     private Set<PokemonType> type = new HashSet<PokemonType>();
     
