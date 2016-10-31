@@ -9,8 +9,9 @@ import cz.muni.fi.pa165.enums.PokemonType;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.persistence.PersistenceException;
+import java.util.List;
 import javax.transaction.Transactional;
+import javax.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -118,10 +119,19 @@ public class TrainerDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertTrue(trainerDao.findAll().size() == 2);
         Assert.assertNull(trainerDao.findById(trainer2.getId()));
     }
-   
-    // Following tests should work
     
-    @Test(expectedExceptions = PersistenceException.class)
+    @Test
+    public void testFindAllBadges () {
+        trainerDao.create(trainer);
+        trainerDao.create(trainer1);
+        
+        List<Trainer> all = trainerDao.findAll();
+        Assert.assertTrue(all.size() == 2);
+        Assert.assertTrue(all.contains(trainer));
+        Assert.assertTrue(all.contains(trainer1));
+    }
+   
+    @Test(expectedExceptions = ConstraintViolationException.class)
     public void firstNameCannotBeNull () {
         Trainer trainer3 = new Trainer();
         trainer3.setLastName("Ponza");
@@ -129,7 +139,7 @@ public class TrainerDaoTest extends AbstractTestNGSpringContextTests {
         trainerDao.create(trainer3);
     }
     
-    @Test(expectedExceptions = PersistenceException.class)
+    @Test(expectedExceptions = ConstraintViolationException.class)
     public void lastNameCannotBeNull () {
         Trainer trainer3 = new Trainer();
         trainer3.setFirstName("Honza");
@@ -137,7 +147,7 @@ public class TrainerDaoTest extends AbstractTestNGSpringContextTests {
         trainerDao.create(trainer3);
     }
     
-    @Test(expectedExceptions = PersistenceException.class)
+    @Test(expectedExceptions = ConstraintViolationException.class)
     public void birthdayCannotBeNull () {
         Trainer trainer3 = new Trainer();
         trainer3.setFirstName("Honza");

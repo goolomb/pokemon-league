@@ -66,10 +66,7 @@ public class Badge {
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (obj == null || !(obj instanceof Badge)) {
             return false;
         }
         final Badge other = (Badge) obj;
