@@ -192,9 +192,9 @@ public class Trainer {
     public int hashCode() {
         final int prime = 43;
         int hash = 7;
-        hash = prime * hash + getFirstName().hashCode();
-        hash = prime * hash + getLastName().hashCode();
-        hash = prime * hash + getBirthDate().hashCode();
+        hash = prime * hash + (getFirstName() != null ? getFirstName().hashCode() : 0);
+        hash = prime * hash + (getLastName() != null ? getLastName().hashCode() : 0);
+        hash = prime * hash + (getBirthDate() != null ? getBirthDate().hashCode() : 0);
         return hash;
     }
 

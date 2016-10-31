@@ -32,13 +32,6 @@ public class TrainerDaoImpl implements TrainerDao {
 
     @Override
     public void create(Trainer trainer) {
-        if (trainer.getBirthDate() == null)
-            throw new PersistenceException("Null birthDate");
-        if (trainer.getFirstName() == null)
-            throw new PersistenceException("Null firstName");
-        if (trainer.getLastName() == null)
-            throw new PersistenceException("Null lastName");
-        
         em.persist(trainer);
     }
 
