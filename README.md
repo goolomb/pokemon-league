@@ -7,6 +7,3 @@ trenérů, odznaků které získali, stadionů a pokémonů náležících tren�
 příslušnost ke konkrétnímu trenérovi. Každý stadion bude mít město ve kterém leží, typové zaměření a trenéra který je vůdcem stadionu. 
 Odznak bude obsahovat stadion původu a trenéra, který jej získal. U jednotlivých trenérů pak bude uchováno jméno, příjmení a datum narození. 
 Pokud je vůdce trenérem daného stadionu nesmí získat jeho odznak.
-
-###Class Diagram: 
-![alt tag](class_diagram.PNG)
