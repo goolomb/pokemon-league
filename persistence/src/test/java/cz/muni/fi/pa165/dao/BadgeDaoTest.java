@@ -6,14 +6,18 @@ import cz.muni.fi.pa165.entity.Stadium;
 import cz.muni.fi.pa165.entity.Trainer;
 import cz.muni.fi.pa165.enums.PokemonType;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
+import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNull;
 import static org.testng.Assert.assertTrue;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -37,15 +41,9 @@ public class BadgeDaoTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private StadiumDao stadiumDao;
 
-    private Badge badge1;
-    private Badge badge2;
-    private Badge badge3;
-    private Stadium stadium1;
-    private Stadium stadium2;
-    private Stadium stadium3;
-    private Trainer trainer1;
-    private Trainer trainer2;
-    private Trainer trainer3;
+    private Badge badge1, badge2;
+    private Stadium stadium1, stadium2;
+    private Trainer trainer1, trainer2;
 
     @BeforeMethod
     public void setUp() {
@@ -59,11 +57,6 @@ public class BadgeDaoTest extends AbstractTestNGSpringContextTests {
                 setLastName("lastName2").
                 setBirthDate(new Date(new Long("2000000")));
 
-        trainer3 = new Trainer().
-                setFirstName("firstName3").
-                setLastName("lastName3").
-                setBirthDate(new Date(new Long("3000000")));
-
         stadium1 = new Stadium();
         stadium1.setCity("city1");
         stadium1.addType(PokemonType.DRAGON); //opraveno
@@ -74,11 +67,6 @@ public class BadgeDaoTest extends AbstractTestNGSpringContextTests {
         stadium2.addType(PokemonType.DARK); //opraveno
         stadium2.setLeader(trainer2);
 
-        stadium3 = new Stadium();
-        stadium3.setCity("city3");
-        stadium3.addType(PokemonType.FIRE); //opraveno
-        stadium3.setLeader(trainer3);
-
         badge1 = new Badge();
         badge1.setOrigin(stadium1);
         badge1.setTrainer(trainer1);
@@ -87,70 +75,52 @@ public class BadgeDaoTest extends AbstractTestNGSpringContextTests {
         badge2.setOrigin(stadium2);
         badge2.setTrainer(trainer2);
 
-        badge3 = new Badge();
-        badge3.setOrigin(stadium3);
-        badge3.setTrainer(trainer3);
-
         trainerDao.create(trainer1);
         trainerDao.create(trainer2);
-        trainerDao.create(trainer3);
         
         stadiumDao.create(stadium1);
         stadiumDao.create(stadium2);
-        stadiumDao.create(stadium3);
-        
-        
-        // zakomentovano, protoze bys zacinal kazdou testovaci metodu uz se 3 vytvorenymi badge
-//        badgeDao.addBadge(badge1);
-//        System.out.println(badgeDao.findBadgeById(badge1.getId()).getOrigin().getCity());
-//        badgeDao.addBadge(badge2);
-//        badgeDao.addBadge(badge3);
     }
 
-//    @Test(expectedExceptions = ConstraintViolationException.class)
-//    public void testAddBadgeWithNullOrigin() {
-//        badge1.setOrigin(null);
-//        badgeDao.addBadge(badge1);
-//    }
+    @Test(expectedExceptions = PersistenceException.class)
+    public void testAddBadgeWithNullOrigin() {
+        badge1.setOrigin(null);
+        badgeDao.addBadge(badge1);
+    }
 
-//    @Test(expectedExceptions = ConstraintViolationException.class)
-//    public void testAddBadgeWithNullTrainer() {
-//        badge1.setTrainer(null);
-//        badgeDao.addBadge(badge1);
-//    }
+    @Test(expectedExceptions = PersistenceException.class)
+    public void testAddBadgeWithNullTrainer() {
+        badge1.setTrainer(null);
+        badgeDao.addBadge(badge1);
+    }
 
     @Test
     public void testAddBadge() {
+        assertNull(badge1.getId());
         badgeDao.addBadge(badge1);
         assertTrue(badgeDao.findAllBadges().contains(badge1));
         assertTrue(badgeDao.findAllBadges().size() == 1);
-
-        badgeDao.addBadge(badge2);
-        assertTrue(badgeDao.findAllBadges().contains(badge1));
-        assertTrue(badgeDao.findAllBadges().size() == 2);
-
     }
 
     @Test
     public void testUpdate() {
         badgeDao.addBadge(badge1);
         badge1.setOrigin(stadium2);
-        badgeDao.updateBadge(badge1);
+        Badge b = badgeDao.updateBadge(badge1);
 
-//        assertEquals(badge2, badgeDao.findBadgeById(badge2.getId()));
-
-        assertEquals(badgeDao.findBadgeById(badge1.getId()).getOrigin(), stadium2);
-        assertEquals(badgeDao.findBadgeById(badge1.getId()).getTrainer(), trainer1);
+        assertEquals(badgeDao.findBadgeById(badge1.getId()), b);
     }
 
     @Test
     public void testRemove() {
         badgeDao.addBadge(badge1);
-        assertTrue(badgeDao.findAllBadges().contains(badge1));
-        assertTrue(badgeDao.findAllBadges().size() == 1);
+        badgeDao.addBadge(badge2);
+        assertTrue(badgeDao.findAllBadges().size() == 2);
 
         badgeDao.deleteBadge(badge1);
-        assertTrue(badgeDao.findAllBadges().isEmpty());
+        assertTrue(badgeDao.findAllBadges().size() == 1);
+        assertTrue(badgeDao.findAllBadges().contains(badge2));
+        assertNull(badgeDao.findBadgeById(badge1.getId()));
     }
 
     @Test
@@ -162,11 +132,13 @@ public class BadgeDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testFindBadgeByTrainer() {
         badgeDao.addBadge(badge1);
-        assertTrue(badgeDao.findBadgeByTrainer(badge1.getTrainer())
+        assertTrue(badgeDao.findBadgeByTrainer(trainer1)
                 .contains(badge1));
         
+        badge2.setTrainer(trainer1);
         badgeDao.addBadge(badge2);
-        assertTrue(badgeDao.findBadgeByTrainer(badge2.getTrainer())
+        assertTrue(badgeDao.findBadgeByTrainer(trainer1).size() == 2);
+        assertTrue(badgeDao.findBadgeByTrainer(trainer1)
                 .contains(badge2));
     }
 
@@ -174,9 +146,11 @@ public class BadgeDaoTest extends AbstractTestNGSpringContextTests {
     public void testFindAll() {
         badgeDao.addBadge(badge1);
         badgeDao.addBadge(badge2);
-        assertTrue(badgeDao.findAllBadges().contains(badge1));
-        assertTrue(badgeDao.findAllBadges().contains(badge2));
-        assertTrue(badgeDao.findAllBadges().size() == 2);
+        
+        List<Badge> all = badgeDao.findAllBadges();
+        assertTrue(all.size() == 2);
+        assertTrue(all.contains(badge1));
+        assertTrue(all.contains(badge2));
     }
 
     private void assertDeepEquals(Badge badge, Badge badge1) {

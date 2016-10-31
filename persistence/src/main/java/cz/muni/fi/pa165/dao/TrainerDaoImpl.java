@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.entity.Trainer;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +32,13 @@ public class TrainerDaoImpl implements TrainerDao {
 
     @Override
     public void create(Trainer trainer) {
+        if (trainer.getBirthDate() == null)
+            throw new PersistenceException("Null birthDate");
+        if (trainer.getFirstName() == null)
+            throw new PersistenceException("Null firstName");
+        if (trainer.getLastName() == null)
+            throw new PersistenceException("Null lastName");
+        
         em.persist(trainer);
     }
 
