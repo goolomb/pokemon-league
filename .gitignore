@@ -18,3 +18,5 @@ persistence/persistence.iml
 
 persistence/target/*
 /persistence/nbproject/
+api/api.iml
+service/service.iml
