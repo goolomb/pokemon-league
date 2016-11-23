@@ -13,6 +13,7 @@ import java.util.List;
 public interface BadgeService {
 
     /**
+     * Returns badge from the persistance contextspecified by Id.
      *
      * @param id id of the Badge
      * @return badge specified by Id
