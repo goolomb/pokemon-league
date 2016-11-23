@@ -29,6 +29,12 @@ public class Badge {
     @NotNull
     private Trainer trainer;
 
+    public Badge () {}
+
+    public Badge (Long id) {
+        this.id = id;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }

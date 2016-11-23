@@ -59,12 +59,12 @@ public class BadgeDaoTest extends AbstractTestNGSpringContextTests {
 
         stadium1 = new Stadium();
         stadium1.setCity("city1");
-        stadium1.addType(PokemonType.DRAGON); //opraveno
+        stadium1.addType(PokemonType.DRAGON);
         stadium1.setLeader(trainer1);
 
         stadium2 = new Stadium();
         stadium2.setCity("city2");
-        stadium2.addType(PokemonType.DARK); //opraveno
+        stadium2.addType(PokemonType.DARK);
         stadium2.setLeader(trainer2);
 
         badge1 = new Badge();

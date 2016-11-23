@@ -27,7 +27,7 @@ public class BadgeServiceImpl implements BadgeService {
     @Override
     public List<Badge> findByTrainer (Trainer trainer) {
         if (trainer == null)
-            throw new IllegalArgumentException("Cannot find badges fol null trainer.");
+            throw new IllegalArgumentException("Cannot find badges for null trainer.");
         return badgeDao.findByTrainer(trainer);
     }
 

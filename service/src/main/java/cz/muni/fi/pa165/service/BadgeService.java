@@ -13,7 +13,6 @@ import java.util.List;
 public interface BadgeService {
 
     /**
-     * Returns badge from the database specified by Id.
      *
      * @param id id of the Badge
      * @return badge specified by Id
