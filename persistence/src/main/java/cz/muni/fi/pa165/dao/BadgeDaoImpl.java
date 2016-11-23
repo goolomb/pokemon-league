@@ -34,7 +34,7 @@ public class BadgeDaoImpl implements BadgeDao{
             return em
                 .createQuery("SELECT b FROM Badge b", Badge.class)
                 .getResultList();
-        }catch(NoResultException e){
+        } catch (NoResultException e){
             return null;
         }
 
@@ -51,7 +51,7 @@ public class BadgeDaoImpl implements BadgeDao{
                     .createQuery("SELECT b FROM Badge b WHERE b.trainer = :trainer", Badge.class)
                     .setParameter("trainer", trainer)
                     .getResultList();
-        }catch(NoResultException e){
+        } catch (NoResultException e){
             return null;
         }
     }

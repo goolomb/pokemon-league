@@ -29,12 +29,14 @@ public interface BadgeDao {
      * Returns badges from the database belonging to specified trainer. 
      * @param trainer owner of badges
      * @return list of badges belonging to specified trainer
+     * @exception IllegalArgumentException if trainer is null
      */
     public List<Badge> findByTrainer(Trainer trainer);
     
     /**
      * Adds new badge to the database.
      * @param badge object to add
+     * @exception IllegalArgumentException if badge is null
      */
     public void create(Badge badge);
     
