@@ -85,69 +85,69 @@ public class BadgeDaoTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = PersistenceException.class)
     public void testAddBadgeWithNullOrigin() {
         badge1.setOrigin(null);
-        badgeDao.addBadge(badge1);
+        badgeDao.create(badge1);
     }
 
     @Test(expectedExceptions = PersistenceException.class)
     public void testAddBadgeWithNullTrainer() {
         badge1.setTrainer(null);
-        badgeDao.addBadge(badge1);
+        badgeDao.create(badge1);
     }
 
     @Test
     public void testAddBadge() {
         assertNull(badge1.getId());
-        badgeDao.addBadge(badge1);
-        assertTrue(badgeDao.findAllBadges().contains(badge1));
-        assertTrue(badgeDao.findAllBadges().size() == 1);
+        badgeDao.create(badge1);
+        assertTrue(badgeDao.findAll().contains(badge1));
+        assertTrue(badgeDao.findAll().size() == 1);
     }
 
     @Test
     public void testUpdate() {
-        badgeDao.addBadge(badge1);
+        badgeDao.create(badge1);
         badge1.setOrigin(stadium2);
-        Badge b = badgeDao.updateBadge(badge1);
+        Badge b = badgeDao.update(badge1);
 
-        assertEquals(badgeDao.findBadgeById(badge1.getId()), b);
+        assertEquals(badgeDao.findById(badge1.getId()), b);
     }
 
     @Test
     public void testRemove() {
-        badgeDao.addBadge(badge1);
-        badgeDao.addBadge(badge2);
-        assertTrue(badgeDao.findAllBadges().size() == 2);
+        badgeDao.create(badge1);
+        badgeDao.create(badge2);
+        assertTrue(badgeDao.findAll().size() == 2);
 
-        badgeDao.deleteBadge(badge1);
-        assertTrue(badgeDao.findAllBadges().size() == 1);
-        assertTrue(badgeDao.findAllBadges().contains(badge2));
-        assertNull(badgeDao.findBadgeById(badge1.getId()));
+        badgeDao.delete(badge1);
+        assertTrue(badgeDao.findAll().size() == 1);
+        assertTrue(badgeDao.findAll().contains(badge2));
+        assertNull(badgeDao.findById(badge1.getId()));
     }
 
     @Test
     public void testFindById() {
-        badgeDao.addBadge(badge1);
-        assertDeepEquals(badgeDao.findBadgeById(badge1.getId()), badge1);
+        badgeDao.create(badge1);
+        assertDeepEquals(badgeDao.findById(badge1.getId()), badge1);
     }
 
     @Test
     public void testFindBadgeByTrainer() {
-        badgeDao.addBadge(badge1);
-        assertTrue(badgeDao.findBadgeByTrainer(trainer1)
+        badgeDao.create(badge1);
+        assertTrue(badgeDao.findByTrainer(trainer1)
                 .contains(badge1));
         
         badge2.setTrainer(trainer1);
-        badgeDao.addBadge(badge2);
-        assertTrue(badgeDao.findBadgeByTrainer(trainer1).size() == 2);
-        assertTrue(badgeDao.findBadgeByTrainer(trainer1)
+        badgeDao.create(badge2);
+        assertTrue(badgeDao.findByTrainer(trainer1).size() == 2);
+        assertTrue(badgeDao.findByTrainer(trainer1)
                 .contains(badge2));
     }
 
     @Test
     public void testFindAll() {
-        badgeDao.addBadge(badge1);
-        badgeDao.addBadge(badge2);
+        badgeDao.create(badge1);
+        badgeDao.create(badge2);
         
-        List<Badge> all = badgeDao.findAllBadges();
+        List<Badge> all = badgeDao.findAll();
         assertTrue(all.size() == 2);
         assertTrue(all.contains(badge1));
         assertTrue(all.contains(badge2));

@@ -24,12 +24,12 @@ public class BadgeDaoImpl implements BadgeDao{
     private EntityManager em;
     
     @Override
-    public Badge findBadgeById(Long id) {
+    public Badge findById(Long id) {
         return em.find(Badge.class, id);
     }
 
     @Override
-    public List<Badge> findAllBadges() {
+    public List<Badge> findAll() {
         try{
             return em
                 .createQuery("SELECT b FROM Badge b", Badge.class)
@@ -41,7 +41,7 @@ public class BadgeDaoImpl implements BadgeDao{
     }
 
     @Override
-    public List<Badge> findBadgeByTrainer(Trainer trainer) {
+    public List<Badge> findByTrainer(Trainer trainer) {
         if (trainer == null) {
             throw new IllegalArgumentException("Cannot search badges with null trainer");
         }
@@ -57,7 +57,7 @@ public class BadgeDaoImpl implements BadgeDao{
     }
     
     @Override
-    public void addBadge(Badge badge) {
+    public void create(Badge badge) {
         if (badge == null) 
             throw new IllegalArgumentException("Badge to add is null.");
         try {
@@ -69,7 +69,7 @@ public class BadgeDaoImpl implements BadgeDao{
     }
     
     @Override
-    public void deleteBadge(Badge badge) {
+    public void delete(Badge badge) {
         try {
             em.remove(badge);
         } catch (Exception e) {
@@ -78,7 +78,7 @@ public class BadgeDaoImpl implements BadgeDao{
     }
     
     @Override
-    public Badge updateBadge(Badge badge) {
+    public Badge update(Badge badge) {
         try {
             return em.merge(badge);
         } catch (Exception e) {

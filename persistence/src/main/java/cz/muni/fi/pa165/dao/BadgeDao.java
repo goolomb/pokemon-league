@@ -17,38 +17,38 @@ public interface BadgeDao {
      * @param id id of the Badge
      * @return badge specified by Id
      */
-    public Badge findBadgeById(Long id);
+    public Badge findById(Long id);
     
     /**
      * Returns all badges from the database.
      * @return all badges
      */
-    public List<Badge> findAllBadges();
+    public List<Badge> findAll();
 
     /**
      * Returns badges from the database belonging to specified trainer. 
      * @param trainer owner of badges
      * @return list of badges belonging to specified trainer
      */
-    public List<Badge> findBadgeByTrainer(Trainer trainer);
+    public List<Badge> findByTrainer(Trainer trainer);
     
     /**
      * Adds new badge to the database.
      * @param badge object to add
      */
-    public void addBadge(Badge badge);
+    public void create(Badge badge);
     
     /**
      * Deletes resource from the database.
      * @param badge object to delete
      */    
-    public void deleteBadge(Badge badge);
+    public void delete(Badge badge);
     
     /**
      * Updates resource in the database.
      * @param badge object to update
      * @return updated badge
      */
-    public Badge updateBadge(Badge badge);
+    public Badge update(Badge badge);
     
 }
