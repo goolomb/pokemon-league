@@ -25,7 +25,11 @@ public class BadgeDaoImpl implements BadgeDao{
     
     @Override
     public Badge findById(Long id) {
-        return em.find(Badge.class, id);
+        try {
+            return em.find(Badge.class, id);
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     @Override

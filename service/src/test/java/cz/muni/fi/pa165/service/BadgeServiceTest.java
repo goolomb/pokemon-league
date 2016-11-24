@@ -35,8 +35,6 @@ public class BadgeServiceTest {
     private Stadium stadium1, stadium2;
     private Trainer trainer1, trainer2;
 
-    @Captor
-    ArgumentCaptor<Badge> argumentCaptor;
 
     @BeforeMethod
     public void initBadges() {
@@ -67,12 +65,16 @@ public class BadgeServiceTest {
         badge2 = new Badge();
         badge2.setOrigin(stadium2);
         badge2.setTrainer(trainer2);
+
     }
 
     @BeforeClass
     public void setUp () {
         MockitoAnnotations.initMocks(this);
     }
+
+
+
 
 /*
     @Test
