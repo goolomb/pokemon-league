@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.StadiumDTO;
+import cz.muni.fi.pa165.dto.TrainerDTO;
 import cz.muni.fi.pa165.entity.Stadium;
 import cz.muni.fi.pa165.entity.Trainer;
 import cz.muni.fi.pa165.service.BeanMapperService;

@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.PokemonDTO;
-import cz.muni.fi.pa165.dto.StadiumDTO;
+import cz.muni.fi.pa165.dto.TrainerDTO;
 import cz.muni.fi.pa165.entity.Pokemon;
 import cz.muni.fi.pa165.entity.Trainer;
 import cz.muni.fi.pa165.service.BeanMapperService;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * @author Martina Minatova
@@ -52,7 +53,7 @@ public class PokemonFacadeImpl implements PokemonFacade {
 
     @Override
     public PokemonDTO update(PokemonDTO pokemon) {
-        Pokemon pokemon = beanMapperService.mapTo(pokemon,Pokemon.class);
-        return beanMapperService.mapTo(pokemonService.update(pokemon), PokemonDTO.class);
+        Pokemon p = beanMapperService.mapTo(pokemon,Pokemon.class);
+        return beanMapperService.mapTo(pokemonService.update(p), PokemonDTO.class);
     }
 }
