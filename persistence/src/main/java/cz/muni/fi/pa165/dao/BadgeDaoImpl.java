@@ -25,6 +25,8 @@ public class BadgeDaoImpl implements BadgeDao{
     
     @Override
     public Badge findById(Long id) {
+        if (id == null)
+            throw new IllegalArgumentException("Id looked for is null");
         try {
             return em.find(Badge.class, id);
         } catch (NoResultException e) {
@@ -74,6 +76,8 @@ public class BadgeDaoImpl implements BadgeDao{
     
     @Override
     public void delete(Badge badge) {
+        if (badge == null)
+            throw new IllegalArgumentException("Cannot delete null badge.");
         try {
             em.remove(badge);
         } catch (Exception e) {
@@ -83,6 +87,8 @@ public class BadgeDaoImpl implements BadgeDao{
     
     @Override
     public Badge update(Badge badge) {
+        if (badge == null)
+            throw new IllegalArgumentException("Badge to update is null.");
         try {
             return em.merge(badge);
         } catch (Exception e) {

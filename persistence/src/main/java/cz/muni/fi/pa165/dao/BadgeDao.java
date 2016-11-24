@@ -16,6 +16,7 @@ public interface BadgeDao {
      * Returns badge from the database specified by Id.
      * @param id id of the Badge
      * @return badge specified by Id
+     * @exception IllegalArgumentException if id is null
      */
     public Badge findById(Long id);
     
