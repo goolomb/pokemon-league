@@ -60,9 +60,9 @@ public class StadiumDTO {
     public int hashCode() {
         final int prime = 53;
         int result = 1;
-        result = prime * result + ((city == null) ? 0 : city.hashCode());
-        result = prime * result + ((type == null) ? 0 : type.hashCode());
-        result = prime * result + ((leader == null) ? 0 : leader.hashCode());
+        result = prime * result + ((getCity() == null) ? 0 : getCity().hashCode());
+        result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
+        result = prime * result + ((getLeader() == null) ? 0 : getLeader().hashCode());
         return result;
     }
 
@@ -79,27 +79,27 @@ public class StadiumDTO {
         }
         final StadiumDTO other = (StadiumDTO) obj;
         //city check
-        if (city == null) {
+        if (getCity() == null) {
             if (other.getCity() != null) {
                 return false;
             }
-        } else if (!city.equals(other.getCity())) {
+        } else if (!getCity().equals(other.getCity())) {
             return false;
         }
         //type check
-        if(type == null){
+        if(getType() == null){
             if(other.getType() != null){
                 return false;
             }
-        }else if (!type.equals(other.getType())){
+        }else if (!getType().equals(other.getType())){
             return false;
         }
         //leader check
-        if(leader == null){
+        if(getLeader() == null){
             if(other.getLeader() != null){
                 return false;
             }
-        }else if (!leader.equals(other.getLeader())){
+        }else if (!getLeader().equals(other.getLeader())){
             return false;
         }
         return true;

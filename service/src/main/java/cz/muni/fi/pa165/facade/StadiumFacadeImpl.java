@@ -1,11 +1,11 @@
 package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.StadiumDTO;
-import cz.muni.fi.pa165.dto.TrainerDTO;
 import cz.muni.fi.pa165.entity.Stadium;
 import cz.muni.fi.pa165.entity.Trainer;
 import cz.muni.fi.pa165.service.BeanMapperService;
 import cz.muni.fi.pa165.service.StadiumService;
+import cz.muni.fi.pa165.service.TrainerService;
 import java.util.List;
 import javax.inject.Inject;
 import org.springframework.stereotype.Service;
@@ -24,6 +24,9 @@ public class StadiumFacadeImpl implements StadiumFacade{
     private StadiumService stadiumService;
     
     @Inject
+    private TrainerService trainerService;
+    
+    @Inject
     private BeanMapperService beanMapperService;
 
     @Override
@@ -37,8 +40,9 @@ public class StadiumFacadeImpl implements StadiumFacade{
     }
 
     @Override
-    public void delete(StadiumDTO stadium) {
-        stadiumService.delete(beanMapperService.mapTo(stadium, Stadium.class));
+    public void delete(Long id) {
+        Stadium st = stadiumService.findById(id);
+        stadiumService.delete(st);
     }
 
     @Override
@@ -47,8 +51,8 @@ public class StadiumFacadeImpl implements StadiumFacade{
     }
 
     @Override
-    public StadiumDTO findByTrainer(TrainerDTO trainer) {
-        Trainer tr = beanMapperService.mapTo(trainer, Trainer.class);
+    public StadiumDTO findByTrainer(Long trainerId) {                
+        Trainer tr = trainerService.findById(trainerId);
         return beanMapperService.mapTo(stadiumService.findByTrainer(tr),StadiumDTO.class);
     }
 

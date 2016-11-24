@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.StadiumDTO;
-import cz.muni.fi.pa165.dto.TrainerDTO;
 import java.util.List;
 
 /**
@@ -14,11 +13,11 @@ public interface StadiumFacade {
     
     void create(StadiumDTO stadium);
     
-    void delete(StadiumDTO stadium);
+    void delete(Long id);
     
     List<StadiumDTO> findAll();
     
-    StadiumDTO findByTrainer(TrainerDTO trainer);
+    StadiumDTO findByTrainer(Long trainerId);
     
     StadiumDTO update(StadiumDTO stadium);
     
