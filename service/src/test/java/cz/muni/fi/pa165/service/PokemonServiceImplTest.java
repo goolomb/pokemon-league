@@ -21,14 +21,18 @@ import static org.mockito.Mockito.when;
  * @author Martina Minatova
  */
 public class PokemonServiceImplTest {
+
     @Mock
     private PokemonDao pokemonDao;
+
+    @Mock
+    private TrainerService trainerService = new TrainerServiceImpl();
 
     @InjectMocks
     private PokemonService pokemonService = new PokemonServiceImpl();
 
-    private Pokemon pokemon1, pokemon2;
-    private Trainer trainer;
+    private Pokemon pokemon1, pokemon2, pokemonToTrade1, pokemonToTrade2;
+    private Trainer trainer, tradingTrainer1, tradingTrainer2;
 
     @BeforeMethod
     public void setUp(){
@@ -49,6 +53,29 @@ public class PokemonServiceImplTest {
         trainer.setLastName("Ketchum");
         trainer.addPokemon(pokemon1);
         pokemon1.setTrainer(trainer);
+
+        pokemonToTrade1 = new Pokemon();
+        pokemonToTrade1.setId(16L);
+        pokemonToTrade1.setName("Eevee");
+        pokemonToTrade1.setLevel(12);
+
+        pokemonToTrade2 = new Pokemon();
+        pokemonToTrade2.setId(17L);
+        pokemonToTrade2.setName("Alakazam");
+        pokemonToTrade2.setLevel(10);
+
+        tradingTrainer1 = new Trainer(4L);
+        tradingTrainer1.setFirstName("first");
+        tradingTrainer1.setLastName("last");
+        tradingTrainer1.addPokemon(pokemonToTrade1);
+        pokemonToTrade1.setTrainer(tradingTrainer1);
+
+        tradingTrainer2 = new Trainer(5L);
+        tradingTrainer2.setFirstName("first");
+        tradingTrainer2.setLastName("last");
+        tradingTrainer2.addPokemon(pokemonToTrade2);
+        pokemonToTrade2.setTrainer(tradingTrainer2);
+
     }
 
     @Test
@@ -123,6 +150,33 @@ public class PokemonServiceImplTest {
     @Test(expectedExceptions=IllegalArgumentException.class)
     public void pokemonServiceUpdateNullTest(){
         pokemonService.update(null);
+    }
+
+    @Test
+    public void testTradePokemon() {
+        when(pokemonDao.findByTrainer(trainer)).thenReturn(Arrays.asList(pokemon1));
+
+
+        pokemonService.tradePokemon(pokemonToTrade1,pokemonToTrade2);
+
+        Assert.assertEquals(pokemonToTrade1.getTrainer(), tradingTrainer2);
+        Assert.assertEquals(pokemonToTrade2.getTrainer(), tradingTrainer1);
+        Assert.assertTrue(tradingTrainer1.getPokemons().contains(pokemonToTrade2));
+        Assert.assertTrue(tradingTrainer2.getPokemons().contains(pokemonToTrade1));
+        Assert.assertTrue(tradingTrainer1.getPokemons().size() == 1);
+        Assert.assertTrue(tradingTrainer2.getPokemons().size() == 1);
+        Assert.assertFalse(tradingTrainer2.getPokemons().contains(pokemonToTrade2));
+        Assert.assertFalse(tradingTrainer1.getPokemons().contains(pokemonToTrade1));
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testTradePokemonNull() {
+        pokemonService.tradePokemon(null, pokemonToTrade1);
+   }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testTradePokemonNullTrainer() {
+        pokemonService.tradePokemon(pokemon2, pokemonToTrade1);
     }
 
 }
