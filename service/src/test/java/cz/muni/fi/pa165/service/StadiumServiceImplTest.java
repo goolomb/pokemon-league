@@ -134,7 +134,8 @@ public class StadiumServiceImplTest {
 
         Badge badge = new Badge();
         badge.setOrigin(st1);
-        badge.setTrainer(leader);
+        badge.setTrainer(t);
+        badge.setId(5L);
         
         stadiumService.giveBadgeToTrainer(st1, t);
         assertTrue(t.getBadges().contains(badge));
