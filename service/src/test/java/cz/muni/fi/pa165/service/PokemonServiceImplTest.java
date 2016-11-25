@@ -154,8 +154,6 @@ public class PokemonServiceImplTest {
 
     @Test
     public void testTradePokemon() {
-        when(pokemonDao.findByTrainer(trainer)).thenReturn(Arrays.asList(pokemon1));
-
 
         pokemonService.tradePokemon(pokemonToTrade1,pokemonToTrade2);
 
