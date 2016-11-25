@@ -143,7 +143,10 @@ public class Trainer {
      * @param badge new badge to be added Trainer
      */
     public void addBadge(Badge badge) {
+        if (badge.getOrigin().getLeader().equals(this))
+            throw new IllegalArgumentException();
         badges.add(badge);
+        badge.setTrainer(this);
     }
     
     /**
@@ -152,6 +155,7 @@ public class Trainer {
      */
     public void removeBadge(Badge badge) {
         badges.remove(badge);
+        badge.setTrainer(null);
     }
 
     /**
@@ -178,6 +182,7 @@ public class Trainer {
      */
     public void addPokemon(Pokemon pokemon) {
         pokemons.add(pokemon);
+        pokemon.setTrainer(this);
     }
     
     /**
@@ -186,6 +191,7 @@ public class Trainer {
      */
     public void removePokemon(Pokemon pokemon) {
         pokemons.remove(pokemon);
+        pokemon.setTrainer(null);
     }
 
     @Override

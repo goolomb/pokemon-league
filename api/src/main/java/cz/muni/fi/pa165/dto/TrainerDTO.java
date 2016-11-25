@@ -67,10 +67,12 @@ public class TrainerDTO {
     
     public void addBadge(BadgeDTO badge) {
         badges.add(badge);
+        badge.setTrainer(this);
     }
     
     public void removeBadge(BadgeDTO badge) {
         badges.remove(badge);
+        badge.setTrainer(null);
     }
 
     public Set<PokemonDTO> getPokemons() {
@@ -84,10 +86,12 @@ public class TrainerDTO {
 
     public void addPokemon(PokemonDTO pokemon) {
         pokemons.add(pokemon);
+        pokemon.setTrainer(this);
     }
     
     public void removePokemon(PokemonDTO pokemon) {
         pokemons.remove(pokemon);
+        pokemon.setTrainer(null);
     }
 
     @Override
