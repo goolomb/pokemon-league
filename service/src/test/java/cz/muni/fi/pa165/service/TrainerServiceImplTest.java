@@ -1,8 +1,6 @@
 package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.dao.TrainerDao;
-import cz.muni.fi.pa165.entity.Badge;
-import cz.muni.fi.pa165.entity.Pokemon;
 import cz.muni.fi.pa165.entity.Trainer;
 import java.util.Arrays;
 import java.util.List;
@@ -96,5 +94,5 @@ public class TrainerServiceImplTest {
     public void trainerServiceUpdateNullTest(){
         trainerService.update(null);
     }
-
+    
 }

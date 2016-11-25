@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.dao;
 
 import cz.muni.fi.pa165.PersistenceApplicationContext;
-import cz.muni.fi.pa165.entity.Badge;
 import cz.muni.fi.pa165.entity.Pokemon;
 import cz.muni.fi.pa165.entity.Stadium;
 import cz.muni.fi.pa165.entity.Trainer;

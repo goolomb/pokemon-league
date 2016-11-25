@@ -8,9 +8,9 @@ import java.util.List;
  * @author Martin Golomb (goolomb)
  */
 public interface TrainerService {
-    public Trainer findById(Long id);
-    public List<Trainer> findAll();
-    public void create(Trainer trainer);
-    public void delete(Trainer trainer);
-    public Trainer update(Trainer trainer);    
+    Trainer findById(Long id);
+    List<Trainer> findAll();
+    void create(Trainer trainer);
+    void delete(Trainer trainer);
+    Trainer update(Trainer trainer);
 }
