@@ -130,7 +130,6 @@ public class Pokemon {
         result = 17 * result + ((nickname == null) ? 0 : nickname.hashCode());
         result = 53 * result + ((type == null) ? 0 : type.hashCode());
         result = 67 * result + level;
-        result = 41 * result + (trainer == null ? 0 : trainer.hashCode());
         return result;
     }
 }
