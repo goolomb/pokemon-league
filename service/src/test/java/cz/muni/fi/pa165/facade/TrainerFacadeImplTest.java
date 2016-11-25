@@ -60,19 +60,18 @@ public class TrainerFacadeImplTest {
         
         when(trainerService.findById(t1.getId())).thenReturn(t);
         when(beanMapperService.mapTo(t, TrainerDTO.class)).thenReturn(t1);
-        TrainerDTO s = trainerFacade.findById(t1.getId());
+        TrainerDTO trainer = trainerFacade.findById(t1.getId());
                 
         verify(trainerService).findById(t1.getId());
         verify(beanMapperService).mapTo(t, TrainerDTO.class);
-        Assert.assertEquals(t, t1);
-        Assert.assertTrue(t.getId() == 1L);
+        Assert.assertEquals(trainer, t1);
+        Assert.assertTrue(trainer.getId() == 1L);
     }
     
     @Test
     public void trainerFacadeDeleteTest(){
         Trainer t = beanMapperService.mapTo(t1, Trainer.class);
         trainerFacade.delete(t1);
-        verify(trainerService).findById(t1.getId());
         verify(trainerService).delete(t);        
         verifyNoMoreInteractions(trainerService);
     }
