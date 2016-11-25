@@ -15,6 +15,14 @@ public class StadiumDTO {
     private String city;
     private Set<PokemonType> type = new HashSet<PokemonType>();
     private TrainerDTO leader;
+
+    public StadiumDTO (Long id) {
+        this.id = id;
+    }
+
+    public StadiumDTO () {
+
+    }
     
     public Long getId() {
         return id;

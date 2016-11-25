@@ -76,14 +76,16 @@ public class BadgeFacadeImpl implements BadgeFacade{
     }
 
     @Override
-    public void update (BadgeDTO badgeDTO) {
+    public BadgeDTO update (BadgeDTO badgeDTO) {
         if (badgeDTO == null) {
             throw new IllegalArgumentException("BadgeDTO is null.");
         }
         if (badgeService.findById(badgeDTO.getId()) == null) {
             throw new IllegalArgumentException("Can not update non-existing badge.");
         }
-        badgeService.update(beanMapperService.mapTo(badgeDTO, Badge.class));
+        Badge badge = beanMapperService.mapTo(badgeDTO, Badge.class);
+
+        return beanMapperService.mapTo(badgeService.update(badge), BadgeDTO.class);
     }
 
 

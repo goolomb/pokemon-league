@@ -6,6 +6,13 @@ package cz.muni.fi.pa165.dto;
  */
 public class BadgeDTO {
 
+    public BadgeDTO () {
+    }
+
+    public BadgeDTO (Long id) {
+        this.id = id;
+    }
+
     private Long id;
 
     private StadiumDTO origin;

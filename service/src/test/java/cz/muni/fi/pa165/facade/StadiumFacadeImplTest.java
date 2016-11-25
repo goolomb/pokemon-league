@@ -80,7 +80,7 @@ public class StadiumFacadeImplTest {
     
     @Test
     public void stadiumFacadeDeleteTest(){
-        Stadium st = beanMapperService.mapTo(st1,Stadium.class);        
+        Stadium st = beanMapperService.mapTo(st1,Stadium.class);
         stadiumFacade.delete(st1.getId());
         verify(stadiumService).findById(st1.getId());
         verify(stadiumService).delete(st);        
