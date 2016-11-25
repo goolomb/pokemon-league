@@ -22,4 +22,5 @@ public interface StadiumService {
     
     Stadium update(Stadium stadium);
     
+    void giveBadgeToTrainer(Stadium stadium, Trainer trainer);
 }
