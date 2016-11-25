@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.service;
 import cz.muni.fi.pa165.dao.BadgeDao;
 import cz.muni.fi.pa165.entity.Badge;
 import cz.muni.fi.pa165.entity.Trainer;
+import cz.muni.fi.pa165.exception.PokemonLeagueDataAccessException;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -16,7 +17,11 @@ public class BadgeServiceImpl implements BadgeService {
 
     @Override
     public Badge findById(Long id) {
-        return badgeDao.findById(id);
+        try {
+            return badgeDao.findById(id);
+        } catch (Throwable e) {
+            throw new PokemonLeagueDataAccessException("Cannot find badge", e);
+        }
     }
 
     @Override
@@ -28,29 +33,44 @@ public class BadgeServiceImpl implements BadgeService {
     public List<Badge> findByTrainer (Trainer trainer) {
         if (trainer == null)
             throw new IllegalArgumentException("Cannot find badges for null trainer.");
-        return badgeDao.findByTrainer(trainer);
+        try {
+            return badgeDao.findByTrainer(trainer);
+        } catch (Throwable e) {
+            throw new PokemonLeagueDataAccessException("Cannot find badge by trainer", e);
+        }
     }
 
     @Override
     public void create (Badge badge) {
         if (badge == null)
             throw new IllegalArgumentException("The badge to create is null");
-        badgeDao.create(badge);
+        try {
+            badgeDao.create(badge);
+        } catch (Throwable e) {
+            throw new PokemonLeagueDataAccessException("Cannot create badge", e);
+        }
     }
 
     @Override
     public void delete(Badge badge) {
         if (badge == null)
             throw new IllegalArgumentException("The badge to delete is null");
-        badgeDao.delete(badge);
+        try {
+            badgeDao.delete(badge);
+        } catch (Throwable e) {
+            throw new PokemonLeagueDataAccessException("Cannot delete badge", e);
+        }
     }
 
     @Override
     public Badge update(Badge badge) {
         if(badge == null)
             throw new IllegalArgumentException("The badge to update is null.");
-
-        return badgeDao.update(badge);
+        try {
+            return badgeDao.update(badge);
+        } catch (Throwable e) {
+            throw new PokemonLeagueDataAccessException("Cannot update badge", e);
+        }
     }
 
 }
