@@ -18,5 +18,5 @@ public interface BadgeFacade {
 
     public void delete(BadgeDTO badgeDTO);
 
-    public void update (BadgeDTO badgeDTO);
+    public BadgeDTO update (BadgeDTO badgeDTO);
 }
