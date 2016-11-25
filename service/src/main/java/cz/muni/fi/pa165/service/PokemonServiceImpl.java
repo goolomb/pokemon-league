@@ -14,6 +14,9 @@ public class PokemonServiceImpl implements PokemonService {
     @Inject
     private PokemonDao pokemonDao;
 
+    @Inject
+    private TrainerService trainerService;
+
     @Override
     public Pokemon findById(Long id) {
         return pokemonDao.findById(id);
@@ -50,5 +53,31 @@ public class PokemonServiceImpl implements PokemonService {
         if (pokemon == null)
             throw new IllegalArgumentException("pokemon cant be null");
         return pokemonDao.update(pokemon);
+    }
+
+    @Override
+    public void tradePokemon(Pokemon pokemon1, Pokemon pokemon2) {
+        if (pokemon1 == null || pokemon2 == null)
+            throw new IllegalArgumentException("pokemon cant be null");
+        if (pokemon1.getTrainer() == null || pokemon2.getTrainer() == null)
+            throw new IllegalArgumentException("pokemon must have trainer");
+
+        Trainer trainer1 = pokemon1.getTrainer();
+        Trainer trainer2 = pokemon2.getTrainer();
+
+        trainer1.removePokemon(pokemon1);
+        trainer2.removePokemon(pokemon2);
+
+        trainer1.addPokemon(pokemon2);
+        trainer2.addPokemon(pokemon1);
+
+        pokemon1.setTrainer(trainer2);
+        pokemon2.setTrainer(trainer1);
+
+        pokemonDao.update(pokemon1);
+        pokemonDao.update(pokemon2);
+
+        trainerService.update(trainer1);
+        trainerService.update(trainer2);
     }
 }

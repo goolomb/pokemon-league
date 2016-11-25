@@ -21,4 +21,6 @@ public interface PokemonService {
     List<Pokemon> findByTrainer(Trainer trainer);
 
     Pokemon update(Pokemon pokemon);
+
+    void tradePokemon(Pokemon pokemon1, Pokemon pokemon2);
 }
