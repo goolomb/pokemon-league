@@ -4,6 +4,8 @@ import cz.muni.fi.pa165.dao.TrainerDao;
 import cz.muni.fi.pa165.entity.Trainer;
 import java.util.List;
 import javax.inject.Inject;
+
+import cz.muni.fi.pa165.exception.PokemonLeagueDataAccessException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,32 +20,54 @@ public class TrainerServiceImpl implements TrainerService {
     
     @Override
     public Trainer findById(Long id) {
-        return trainerDao.findById(id);
+
+        try {
+            return trainerDao.findById(id);
+        } catch (Throwable e) {
+            throw new PokemonLeagueDataAccessException("Cannot find trainer", e);
+        }
+
     }
 
     @Override
     public List<Trainer> findAll() {
-        return trainerDao.findAll();
+        try {
+            return trainerDao.findAll();
+        } catch (Throwable e) {
+            throw new PokemonLeagueDataAccessException("Cannot find all trainers", e);
+        }
     }
 
     @Override
     public void create(Trainer trainer) {
         if (trainer == null)
             throw new IllegalArgumentException("Trainer is null");
-        trainerDao.create(trainer);
+        try {
+            trainerDao.create(trainer);
+        } catch (Throwable e) {
+            throw new PokemonLeagueDataAccessException("Cannot create trainer", e);
+        }
     }
 
     @Override
     public void delete(Trainer trainer) {
         if (trainer == null)
             throw new IllegalArgumentException("Trainer is null");
-        trainerDao.delete(trainer);
+        try {
+            trainerDao.delete(trainer);
+        } catch (Throwable e) {
+            throw new PokemonLeagueDataAccessException("Cannot delete trainer", e);
+        }
     }
 
     @Override
     public Trainer update(Trainer trainer) {
         if (trainer == null)
             throw new IllegalArgumentException("Trainer is null");
-        return trainerDao.update(trainer);
-    }    
+        try {
+            return trainerDao.update(trainer);
+        } catch (Throwable e) {
+            throw new PokemonLeagueDataAccessException("Cannot update trainer", e);
+        }
+    }
 }

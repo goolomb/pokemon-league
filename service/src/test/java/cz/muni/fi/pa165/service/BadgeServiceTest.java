@@ -6,6 +6,7 @@ import cz.muni.fi.pa165.entity.Badge;
 import cz.muni.fi.pa165.entity.Stadium;
 import cz.muni.fi.pa165.entity.Trainer;
 import cz.muni.fi.pa165.enums.PokemonType;
+import cz.muni.fi.pa165.exception.PokemonLeagueDataAccessException;
 import org.mockito.*;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
@@ -173,7 +174,7 @@ public class BadgeServiceTest {
         assertEquals(badge, badge1);
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expectedExceptions = PokemonLeagueDataAccessException.class)
     public void findByNullId () {
         badgeService.findById(null);
     }
@@ -226,18 +227,18 @@ public class BadgeServiceTest {
         badgeDao.create(null);
     }
 
-    @Test(expectedExceptions = EntityExistsException.class)
+    @Test(expectedExceptions = PokemonLeagueDataAccessException.class)
     public void createExistingBadge () {
         badgeService.create(badge1);
     }
 
-    @Test(expectedExceptions = ConstraintViolationException.class)
+    @Test(expectedExceptions = PokemonLeagueDataAccessException.class)
     public void createBadgeNullTrainer () {
         badge2.setTrainer(null);
         badgeService.create(badge2);
     }
 
-    @Test(expectedExceptions = ConstraintViolationException.class)
+    @Test(expectedExceptions = PokemonLeagueDataAccessException.class)
     public void createBadgeNullOrigin () {
         badge2.setOrigin(null);
         badgeService.create(badge2);
