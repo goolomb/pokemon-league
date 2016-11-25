@@ -21,11 +21,15 @@ public class PokemonServiceImpl implements PokemonService {
 
     @Override
     public void create(Pokemon pokemon) {
+        if (pokemon == null)
+            throw new IllegalArgumentException("pokemon cant be null");
         pokemonDao.create(pokemon);
     }
 
     @Override
     public void delete(Pokemon pokemon) {
+        if (pokemon == null)
+            throw new IllegalArgumentException("pokemon cant be null");
         pokemonDao.delete(pokemon);
     }
 
@@ -36,11 +40,15 @@ public class PokemonServiceImpl implements PokemonService {
 
     @Override
     public List<Pokemon> findByTrainer(Trainer trainer) {
+        if (trainer == null)
+            throw new IllegalArgumentException("trainer cant be null");
         return pokemonDao.findByTrainer(trainer);
     }
 
     @Override
     public Pokemon update(Pokemon pokemon) {
+        if (pokemon == null)
+            throw new IllegalArgumentException("pokemon cant be null");
         return pokemonDao.update(pokemon);
     }
 }
