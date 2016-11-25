@@ -143,8 +143,6 @@ public class Trainer {
      * @param badge new badge to be added Trainer
      */
     public void addBadge(Badge badge) {
-        if (badge.getOrigin().getLeader().equals(this))
-            throw new IllegalArgumentException();
         badges.add(badge);
         badge.setTrainer(this);
     }

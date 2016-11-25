@@ -78,7 +78,7 @@ public class StadiumServiceImpl implements StadiumService{
         Badge b = new Badge();
         b.setOrigin(stadium);
         b.setTrainer(trainer);
-        
+                
         if (trainer.getBadges().contains(b))
             throw new IllegalArgumentException("Already has this badge");
         
