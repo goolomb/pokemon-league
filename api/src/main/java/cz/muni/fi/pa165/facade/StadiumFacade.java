@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.StadiumDTO;
+import cz.muni.fi.pa165.dto.TrainerDTO;
 import java.util.List;
 
 /**
@@ -20,5 +21,7 @@ public interface StadiumFacade {
     StadiumDTO findByTrainer(Long trainerId);
     
     StadiumDTO update(StadiumDTO stadium);
+    
+    void giveBadgeToTrainer(StadiumDTO stadium, TrainerDTO trainer);
     
 }
