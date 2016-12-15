@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.rest;
+package cz.muni.fi.pa165.web.rest;
 
 /**
  * @author Martina Minatova

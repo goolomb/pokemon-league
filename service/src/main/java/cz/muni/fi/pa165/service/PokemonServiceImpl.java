@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.entity.Pokemon;
 import cz.muni.fi.pa165.entity.Trainer;
 import cz.muni.fi.pa165.exception.PokemonLeagueDataAccessException;
 import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 /**
  * @author Martina Minatova
  */
+@Service
 public class PokemonServiceImpl implements PokemonService {
     @Inject
     private PokemonDao pokemonDao;

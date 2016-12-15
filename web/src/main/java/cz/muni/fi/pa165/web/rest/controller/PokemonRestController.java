@@ -1,11 +1,11 @@
-package cz.muni.fi.pa165.rest.controller;
+package cz.muni.fi.pa165.web.rest.controller;
 
 import cz.muni.fi.pa165.dto.PokemonDTO;
 import cz.muni.fi.pa165.facade.PokemonFacade;
 import cz.muni.fi.pa165.facade.TrainerFacade;
-import cz.muni.fi.pa165.rest.ApiUris;
-import cz.muni.fi.pa165.rest.exception.InvalidParameterException;
-import cz.muni.fi.pa165.rest.exception.ResourceNotFoundException;
+import cz.muni.fi.pa165.web.rest.ApiUris;
+import cz.muni.fi.pa165.web.rest.exception.InvalidParameterException;
+import cz.muni.fi.pa165.web.rest.exception.ResourceNotFoundException;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 

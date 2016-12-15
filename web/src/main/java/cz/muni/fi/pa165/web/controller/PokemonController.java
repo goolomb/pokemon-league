@@ -1,10 +1,11 @@
-package cz.muni.fi.pa165.controller;
+package cz.muni.fi.pa165.web.controller;
 
 import cz.muni.fi.pa165.dto.PokemonDTO;
 import cz.muni.fi.pa165.dto.TrainerDTO;
 import cz.muni.fi.pa165.facade.PokemonFacade;
 import cz.muni.fi.pa165.facade.TrainerFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +24,7 @@ import javax.validation.Valid;
  */
 @Controller
 @RequestMapping("/pokemon")
+@ComponentScan("cz.muni.fi.pa165.service")
 public class PokemonController {
 
     @Autowired

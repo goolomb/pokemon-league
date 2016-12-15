@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.service;
 
-import cz.muni.fi.pa165.config.ServiceConfig;
+import cz.muni.fi.pa165.web.config.ServiceConfig;
 import cz.muni.fi.pa165.dao.BadgeDao;
 import cz.muni.fi.pa165.entity.Badge;
 import cz.muni.fi.pa165.entity.Stadium;

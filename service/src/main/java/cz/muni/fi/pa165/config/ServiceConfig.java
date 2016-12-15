@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.config;
+package cz.muni.fi.pa165.web.config;
 
 import cz.muni.fi.pa165.PersistenceApplicationContext;
 import org.springframework.context.annotation.Bean;

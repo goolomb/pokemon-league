@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.rest.exception;
+package cz.muni.fi.pa165.web.rest.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

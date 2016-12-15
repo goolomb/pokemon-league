@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.dao.BadgeDao;
 import cz.muni.fi.pa165.entity.Badge;
 import cz.muni.fi.pa165.entity.Trainer;
 import cz.muni.fi.pa165.exception.PokemonLeagueDataAccessException;
+import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * Created by Marek Perichta.
  */
+@Service
 public class BadgeServiceImpl implements BadgeService {
     @Inject
     private BadgeDao badgeDao;
@@ -30,7 +32,7 @@ public class BadgeServiceImpl implements BadgeService {
     }
 
     @Override
-    public List<Badge> findByTrainer (Trainer trainer) {
+    public List<Badge> findByTrainer(Trainer trainer) {
         if (trainer == null)
             throw new IllegalArgumentException("Cannot find badges for null trainer.");
         try {
@@ -41,7 +43,7 @@ public class BadgeServiceImpl implements BadgeService {
     }
 
     @Override
-    public void create (Badge badge) {
+    public void create(Badge badge) {
         if (badge == null)
             throw new IllegalArgumentException("The badge to create is null");
         try {
@@ -64,7 +66,7 @@ public class BadgeServiceImpl implements BadgeService {
 
     @Override
     public Badge update(Badge badge) {
-        if(badge == null)
+        if (badge == null)
             throw new IllegalArgumentException("The badge to update is null.");
         try {
             return badgeDao.update(badge);
