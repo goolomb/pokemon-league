@@ -30,9 +30,9 @@
                 <c:forEach items="${trainers}" var="trainer">
                     <tr>
                         <td><c:out value="${trainer.id}"/></td>
-                        <td><c:out value="${trainer.firstname}"/></td>
-                        <td><c:out value="${trainer.lastname}"/></td>
-                        <td><c:out value="${trainer.birthdate}:" /></td>
+                        <td><c:out value="${trainer.firstName}"/></td>
+                        <td><c:out value="${trainer.lastName}"/></td>
+                        <td><fmt:formatDate value="${trainer.birthDate}" pattern="dd.MM.yyyy" />/td>
                         <td>
                             <c:forEach items="${trainer.pokemon}" var="pokemon">
                                 <c:out value="${trainer.pokemon.name} "/>
@@ -40,7 +40,7 @@
                         </td>
                         <td>
                             <c:forEach items="${trainer.badge}" var="badge">
-                                <c:out value="${trainer.badge.name} "/>
+                                <c:out value="${trainer.badge.origin} "/>
                             </c:forEach>
                         </td>
 

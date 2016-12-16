@@ -35,7 +35,7 @@
             <div class="col-sm-5">
                     <form:select path="pokemons" cssClass="form-control">
                         <c:forEach items="${pokemons}" var="pokemon">
-                            <form:option value="${pokemon}">${pokemon}</form:option>
+                            <form:option value="${pokemon}">${pokemon.name} ${pokemon.nickname}</form:option>
                         </c:forEach>
                     </form:select>
                 <form:errors path="pokemon" cssClass="help-block"/>
@@ -46,7 +46,7 @@
             <div class="col-sm-5">
                     <form:select path="badges" cssClass="form-control">
                         <c:forEach items="${badges}" var="badge">
-                            <form:option value="${badge}">${badge}</form:option>
+                            <form:option value="${badge}">${badge.origin}</form:option>
                         </c:forEach>
                     </form:select>
                 <form:errors path="badge" cssClass="help-block"/>
