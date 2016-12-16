@@ -8,10 +8,13 @@
 
 <t:template>
     <jsp:attribute name="body">
-        <a href="/pa165/trainer/new" class="btn btn-default">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-            New Trainer
-        </a>
+
+        <sec:authorize access="hasRole('ADMIN')">
+            <a href="/pa165/trainer/new" class="btn btn-default">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                New Trainer
+            </a>
+        </sec:authorize>
 
 
         <table class="table">
@@ -32,21 +35,22 @@
                         <td><c:out value="${trainer.id}"/></td>
                         <td><c:out value="${trainer.firstName}"/></td>
                         <td><c:out value="${trainer.lastName}"/></td>
-                        <td><fmt:formatDate value="${trainer.birthDate}" pattern="dd.MM.yyyy" />/td>
-                        <td>
-                            <c:forEach items="${trainer.pokemon}" var="pokemon">
-                                <c:out value="${trainer.pokemon.name} "/>
-                            </c:forEach>
-                        </td>
-                        <td>
-                            <c:forEach items="${trainer.badge}" var="badge">
-                                <c:out value="${trainer.badge.origin.city} "/>
-                            </c:forEach>
-                        </td>
-
-                    </tr>
+                        <td><fmt:formatDate value="${trainer.birthDate}" pattern="dd.MM.yyyy" /></td>
+            <%--<td>
+                <c:forEach items="${trainer.pokemons}" var="pokemon">
+                    <c:out value="${pokemon.name} "/>
                 </c:forEach>
-            </tbody>
-        </table>
-    </jsp:attribute>
+            </td>
+            <td>
+                <c:forEach items="${trainer.badges}" var="badge">
+                    <c:out value="${badge.origin.city} "/>
+                </c:forEach>
+            </td>
+            --%>
+
+        </tr>
+    </c:forEach>
+</tbody>
+</table>
+</jsp:attribute>
 </t:template>

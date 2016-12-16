@@ -1,7 +1,16 @@
 package cz.muni.fi.pa165.web.controller;
 
+import cz.muni.fi.pa165.dto.BadgeDTO;
+import cz.muni.fi.pa165.dto.StadiumDTO;
 import cz.muni.fi.pa165.dto.TrainerDTO;
+import cz.muni.fi.pa165.facade.BadgeFacade;
+import cz.muni.fi.pa165.facade.PokemonFacade;
+import cz.muni.fi.pa165.facade.StadiumFacade;
 import cz.muni.fi.pa165.facade.TrainerFacade;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -36,10 +45,9 @@ public class TrainerController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute("trainerCreate") TrainerDTO form, BindingResult bindingResult,
-                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder)
-    {
+            Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         if (bindingResult.hasErrors()) {
-            for(FieldError fe : bindingResult.getFieldErrors()) {
+            for (FieldError fe : bindingResult.getFieldErrors()) {
                 model.addAttribute(fe.getField() + "_error", true);
             }
             return "trainer/new";
@@ -53,8 +61,8 @@ public class TrainerController {
     public String list(Model model) {
         model.addAttribute("trainers", trainerFacade.findAll());
         return "trainer/list";
-    }    
-    
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getTrainer(@PathVariable("id") long id, Model model) {
         TrainerDTO trainer = trainerFacade.findById(id);
@@ -84,7 +92,7 @@ public class TrainerController {
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     public String updateTrainer(@ModelAttribute("trainer") TrainerDTO trainer, @PathVariable("id") long id,
-                             Model model, UriComponentsBuilder uriBuilder) {
+            Model model, UriComponentsBuilder uriBuilder) {
         trainerFacade.update(trainerFacade.findById(id));
         return "redirect:" + uriBuilder.path("/trainer").toUriString();
     }
