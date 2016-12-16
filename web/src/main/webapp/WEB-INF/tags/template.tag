@@ -37,7 +37,7 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li><a href="${pageContext.request.contextPath}/badge">Badges</a></li>
-                <li><a href="${pageContext.request.contextPath}/pokemon">Pokemons</a></li>
+                <li><a href="${pageContext.request.contextPath}/pokemon/list">Pokemons</a></li>
                 <li><a href="${pageContext.request.contextPath}/trainer">Trainers</a></li>
                 <li><a href="${pageContext.request.contextPath}/stadium/list">Stadiums</a></li>
             </ul>

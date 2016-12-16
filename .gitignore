@@ -23,10 +23,8 @@ service/service.iml
 service/target/*
 api/target/*
 web/web.iml
-web/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+
 *.lst
-web/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
-web/target/tomcat/work/Tomcat/localhost/pa165/org/apache/jsp/WEB_002dINF/views/jsp/badge/index_jsp.java
-web/target/tomcat/work/Tomcat/localhost/pa165/org/apache/jsp/tag/webtemplate_tag.java
-web/target/tomcat/logs/access_log.2016-12-16
-web/target/maven-archiver/pom.properties
+
+web/target/*
+
