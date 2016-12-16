@@ -32,13 +32,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Pokémon App</a>
+            <a class="navbar-brand" href="<c:url value="/" />">Pokémon App</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
                 <li><a href="#">About</a></li>
-                <li><a href="#">Projects</a></li>
+                <li><a href="<c:url value="/stadium/list" />">Stadiums</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
         </div>
