@@ -1,7 +1,9 @@
 package cz.muni.fi.pa165.web.controller;
 
 import cz.muni.fi.pa165.dto.StadiumDTO;
+import cz.muni.fi.pa165.enums.PokemonType;
 import cz.muni.fi.pa165.facade.StadiumFacade;
+import cz.muni.fi.pa165.facade.TrainerFacade;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -28,12 +30,17 @@ public class StadiumController {
     @Autowired
     private StadiumFacade stadiumFacade;
     
+    @Autowired
+    private TrainerFacade trainerFacade;
+    
     /**
      * Prepares an empty form for creating new stadium.
      */
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newStadium(Model m) {
         m.addAttribute("stadiumCreate", new StadiumDTO());
+        m.addAttribute("pokemonTypes",PokemonType.values());
+        m.addAttribute("trainers",trainerFacade.findAll());
         return "stadium/new";
     }
     
