@@ -39,6 +39,7 @@
                 <li class="active"><a href="#">Home</a></li>
                 <li><a href="#">About</a></li>
                 <li><a href="<c:url value="/stadium/list" />">Stadiums</a></li>
+                <li><a href="<c:url value="/pokemon/list" />">Pokemon</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
         </div>

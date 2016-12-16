@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.web.controller;
 
 import cz.muni.fi.pa165.dto.PokemonDTO;
 import cz.muni.fi.pa165.dto.TrainerDTO;
+import cz.muni.fi.pa165.enums.PokemonType;
 import cz.muni.fi.pa165.facade.PokemonFacade;
 import cz.muni.fi.pa165.facade.TrainerFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.util.Collection;
 
 /**
  * @author Martina Minatova
@@ -33,6 +35,21 @@ public class PokemonController {
     @Autowired
     private TrainerFacade trainerFacade;
 
+    @ModelAttribute("types")
+    public PokemonType[] types() {
+        return PokemonType.values();
+    }
+
+    @ModelAttribute("trainers")
+    public Collection<TrainerDTO> trainers() {
+        return trainerFacade.findAll();
+    }
+
+    @ModelAttribute("pokemons")
+    public Collection<PokemonDTO> pokemons() {
+        return pokemonFacade.findAll();
+    }
+
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newPokemon(Model model) {
         model.addAttribute("pokemonCreate", new PokemonDTO());
@@ -47,6 +64,7 @@ public class PokemonController {
             for(FieldError fe : bindingResult.getFieldErrors()) {
                 model.addAttribute(fe.getField() + "_error", true);
             }
+            redirectAttributes.addFlashAttribute("alert_error", "Pokemon was not created.");
             return "pokemon/new";
         }
         pokemonFacade.create(form);
@@ -54,6 +72,11 @@ public class PokemonController {
         return "redirect:" + uriBuilder.path("/pokemon/list").toUriString();
     }
 
+    @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
+    public String view(@PathVariable long id, Model model) {
+        model.addAttribute("pokemon", pokemonFacade.findById(id));
+        return "/pokemon/view";
+    }
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
         model.addAttribute("pokemons", pokemonFacade.findAll());
