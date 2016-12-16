@@ -1,9 +1,10 @@
-package cz.muni.fi.pa165.controller;
+package cz.muni.fi.pa165.web.controller;
 
 import cz.muni.fi.pa165.dto.TrainerDTO;
 import cz.muni.fi.pa165.facade.TrainerFacade;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
  */
 @Controller
 @RequestMapping("/trainer")
+@ComponentScan("cz.muni.fi.pa165.service")
 public class TrainerController {
 
     @Autowired
