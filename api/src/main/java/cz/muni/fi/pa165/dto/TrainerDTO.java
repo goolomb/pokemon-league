@@ -57,7 +57,7 @@ public class TrainerDTO {
     }
 
     public Set<BadgeDTO> getBadges() {
-        return Collections.unmodifiableSet(badges);
+        return badges;
     }
 
     public TrainerDTO setBadges(Set<BadgeDTO> badges) {
@@ -76,7 +76,7 @@ public class TrainerDTO {
     }
 
     public Set<PokemonDTO> getPokemons() {
-        return Collections.unmodifiableSet(pokemons);
+        return pokemons;
     }
 
     public TrainerDTO setPokemons(Set<PokemonDTO> pokemons) {

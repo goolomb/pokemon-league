@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.web.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +10,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import javax.annotation.PostConstruct;
+
 /**
  * Created by Marek Perichta.
  */
@@ -16,6 +19,10 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 @ComponentScan(basePackages = "cz.muni.fi.pa165")
 public class WebApplicationConfiguration extends WebMvcConfigurerAdapter {
+
+    @Autowired
+    private DataInitializer dataInitializer;
+
 
     @Bean
     public InternalResourceViewResolver viewResolver() {
@@ -31,4 +38,8 @@ public class WebApplicationConfiguration extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/resources/**").addResourceLocations("/WEB-INF/resources/");
     }
 
+    @PostConstruct
+    public void load() {
+        dataInitializer.loadData();
+    }
 }

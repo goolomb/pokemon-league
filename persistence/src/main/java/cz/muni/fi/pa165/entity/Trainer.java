@@ -125,7 +125,7 @@ public class Trainer {
      * @return collection of badges of Trainer
      */
     public Set<Badge> getBadges() {
-        return Collections.unmodifiableSet(badges);
+        return badges;
     }
 
     /**
@@ -161,7 +161,7 @@ public class Trainer {
      * @return collection of pokemons of Trainer
      */
     public Set<Pokemon> getPokemons() {
-        return Collections.unmodifiableSet(pokemons);
+        return pokemons;
     }
 
     /**
