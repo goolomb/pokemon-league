@@ -40,7 +40,7 @@
                         </td>
                         <td>
                             <c:forEach items="${trainer.badge}" var="badge">
-                                <c:out value="${trainer.badge.origin} "/>
+                                <c:out value="${trainer.badge.origin.city} "/>
                             </c:forEach>
                         </td>
 
