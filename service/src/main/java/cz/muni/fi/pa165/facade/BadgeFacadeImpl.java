@@ -39,7 +39,14 @@ public class BadgeFacadeImpl implements BadgeFacade{
 
     @Override
     public List<BadgeDTO> findAll() {
-        return beanMapperService.mapTo(badgeService.findAll(), BadgeDTO.class);
+        List<BadgeDTO> badges;
+        try {
+            badges = beanMapperService.mapTo(badgeService.findAll(), BadgeDTO.class);
+        } catch (NullPointerException ex) {
+            return null;
+        }
+
+        return badges;
     }
 
     @Override
