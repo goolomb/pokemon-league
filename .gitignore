@@ -23,3 +23,8 @@ service/service.iml
 service/target/*
 api/target/*
 web/web.iml
+
+*.lst
+
+web/target/*
+
