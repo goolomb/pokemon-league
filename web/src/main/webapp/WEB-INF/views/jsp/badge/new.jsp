@@ -12,9 +12,35 @@
 
 <t:template>
     <jsp:attribute name="body">
-         <form:form method="post" action="${pageContext.request.contextPath}/badge/create" modelAttribute="badgeCreate" cssClass="form-horizontal">
+         <form:form method="post" action="${pageContext.request.contextPath}/badge/create" modelAttribute="badgeCreate"
+                    cssClass="form-horizontal">
+
+                <div class="form-group ${trainer_error?'has-error':''}">
+                    <form:label path="trainer" cssClass="col-sm-2 control-label">Trainer</form:label>
+                    <div class="col-sm-6">
+                    <form:select path="trainer">
+                        <form:options items="${trainers}"/>
+                    </form:select>
+                        <form:errors path="trainer" cssClass="help-block"/>
+                    </div>
+                </div>
+
+                <div class="form-group ${origin_error?'has-error':''}">
+                    <form:label path="origin" cssClass="col-sm-2 control-label">Origin</form:label>
+                    <div class="col-sm-6">
+                    <form:select path="origin">
+                        <form:options items="${origins}"/>
+                    </form:select>
+                        <form:errors path="origin" cssClass="help-block"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-2">
+                        <button class="btn btn-default" type="submit">Create Badge</button>
+                    </div>
+                </div>
 
          </form:form>
-
     </jsp:attribute>
 </t:template>

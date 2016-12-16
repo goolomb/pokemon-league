@@ -5,21 +5,17 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="cp" value="${pageContext.request.servletContext.contextPath}" scope="request" />
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Pokemon league manager</title>
-        <link rel="stylesheet" type="text/css" href="resources/css/site.css" />
-    </head>
-    <body>
+<t:template>
+    <jsp:attribute name="body">
         <div align="center">
             <div id="status_message" style="color:green">${alert_success}</div>
             <table>
                 <tr>
                     <td>
                         <div class="login-card">
+                            username:admin/user password:admin/user
                             <c:url value="/login" var="loginUrl"/>
                             <form action="${loginUrl}" method="post">
                                 <input type="text" id="username" name="username" size="25" placeholder="Username">
@@ -32,5 +28,5 @@
                 </tr>
             </table>
         </div>
-    </body>
-</html>
+    </jsp:attribute>
+</t:template>

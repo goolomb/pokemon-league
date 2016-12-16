@@ -62,7 +62,6 @@
 
 <!-- footer -->
 <footer class="container-fluid footer text-center">
-    <p>Sem prídu mená</p>
 </footer>
 
 <!-- JavaScript libraries -->

@@ -2,7 +2,9 @@ package cz.muni.fi.pa165.web.controller;
 
 import cz.muni.fi.pa165.dto.BadgeDTO;
 import cz.muni.fi.pa165.facade.BadgeFacade;
+import cz.muni.fi.pa165.facade.StadiumFacade;
 import cz.muni.fi.pa165.facade.TrainerFacade;
+import cz.muni.fi.pa165.service.PokemonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
@@ -34,19 +36,23 @@ public class BadgeController {
     @Autowired
     private TrainerFacade trainerFacade;
 
+    @Autowired
+    private StadiumFacade stadiumFacade;
+
 
     @RequestMapping(value = {"", "/", "/index"}, method = RequestMethod.GET)
     public String index(Model model) {
 
-        List<BadgeDTO> badges = badgeFacade.findAll();
-        model.addAttribute("badges", badges);
-
+        //List<BadgeDTO> badges = badgeFacade.findAll();
+        model.addAttribute("badges", null);
         return "badge/index";
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newBadge(Model model) {
         model.addAttribute("badgeCreate", new BadgeDTO());
+        model.addAttribute("trainers",trainerFacade.findAll());
+        model.addAttribute("origins", stadiumFacade.findAll());
         return "badge/new";
     }
 
