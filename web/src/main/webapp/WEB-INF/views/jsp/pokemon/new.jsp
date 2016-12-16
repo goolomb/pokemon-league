@@ -4,7 +4,7 @@
 
 <t:template>
     <jsp:attribute name="body">
-        <form:form method="post" action="${actionUrl}/pokemon/create"
+        <form:form method="post" action="${pageContext.request.contextPath}/pokemon/create"
                    modelAttribute="pokemonCreate" cssClass="form-horizontal">
     <div class="form-group">
         <form:label path="name" cssClass="col-sm-1 control-label">Name</form:label>
@@ -43,7 +43,7 @@
             <div class="col-sm-5">
                     <form:select path="trainer" cssClass="form-control">
                         <c:forEach items="${trainers}" var="trainer">
-                            <form:option value="${trainer}">${trainer}</form:option>
+                            <form:option value="${trainer}">${trainer.firstName} ${trainer.lastName}</form:option>
                         </c:forEach>
                     </form:select>
                 <form:errors path="trainer" cssClass="help-block"/>
