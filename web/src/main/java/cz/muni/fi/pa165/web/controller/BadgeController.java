@@ -43,8 +43,8 @@ public class BadgeController {
     @RequestMapping(value = {"", "/", "/index"}, method = RequestMethod.GET)
     public String index(Model model) {
 
-        //List<BadgeDTO> badges = badgeFacade.findAll();
-        model.addAttribute("badges", null);
+        List<BadgeDTO> badges = badgeFacade.findAll();
+        model.addAttribute("badges", badges);
         return "badge/index";
     }
 
