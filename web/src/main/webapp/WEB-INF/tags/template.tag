@@ -62,6 +62,7 @@
 
 <!-- footer -->
 <footer class="container-fluid footer text-center">
+    <p>© 2016 Martina Minátová, Marek Perichta, Martin Golomb, Jakub Holý</p>
 </footer>
 
 <!-- JavaScript libraries -->
