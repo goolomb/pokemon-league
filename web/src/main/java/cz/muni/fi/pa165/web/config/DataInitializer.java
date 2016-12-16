@@ -1,9 +1,11 @@
 package cz.muni.fi.pa165.web.config;
 
+import cz.muni.fi.pa165.dao.UserDao;
 import cz.muni.fi.pa165.entity.Badge;
 import cz.muni.fi.pa165.entity.Pokemon;
 import cz.muni.fi.pa165.entity.Stadium;
 import cz.muni.fi.pa165.entity.Trainer;
+import cz.muni.fi.pa165.entity.User;
 import cz.muni.fi.pa165.enums.PokemonType;
 import cz.muni.fi.pa165.service.BadgeService;
 import cz.muni.fi.pa165.service.PokemonService;
@@ -45,9 +47,22 @@ public class DataInitializer {
     @Autowired
     private StadiumService stadiumService;
 
+    @Autowired
+    private UserDao userDao;
+    
     public void loadData()  {
-        //TODO: security settings
-
+        User admin = new User();
+        admin.setUsername("admin");
+        admin.setPassword("admin");
+        admin.setRole("ROLE_ADMIN");
+        userDao.create(admin);
+        
+        User user = new User();
+        user.setUsername("user");
+        user.setPassword("user");
+        user.setRole("ROLE_USER");
+        userDao.create(user);
+        
         trainer1 = new Trainer();
         trainer1.setFirstName("Ash");
         trainer1.setLastName("Ketchum");

@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
+
 /**
  *
  * @author Martin Golomb (goolomb)
@@ -34,25 +35,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers(
-                        "/pokemon/new/**",
-                        "/pokemon/create**"
-                        ).hasRole("ADMIN") // only admin can change pokemons
-                .antMatchers("/rest/**").hasRole("ADMIN") // allow only admin to use rest api
+                        "**/pokemon/new/**"
+                ).hasRole("ADMIN") // only admin can change pokemons
+                .antMatchers("**/rest/**").hasRole("ADMIN") // allow only admin to use rest api
                 .antMatchers(
-                        "/trainer/delete/**",
-                        "/trainer/update/**",
-                        "/trainer/new/**",
-                        "/trainer/create/**"
-                        ).hasRole("ADMIN") // only admin can change trainers
+                        "**/trainer/new/**"
+                ).hasRole("ADMIN") // only admin can change trainers
                 .antMatchers(
-                        "/pokemon/list/**",
-                        "/trainer/list/**",
-                        "stadium/list/**"
-                        ).hasAnyRole("ADMIN", "USER") // everyone can list
+                        "**/pokemon/list/**",
+                        "**/trainer/list/**",
+                        "**/stadium/list/**",
+                        "**/badge/index/**"
+                ).hasAnyRole("ADMIN", "USER") // everyone can list
                 .antMatchers(
-                        "/stadium/new/**",
-                        "/stadium/create/**"
-                        ).hasRole("ADMIN") // only admin can change stadium
+                        "**/stadium/new/**"
+                ).hasRole("ADMIN") // only admin can change stadium
+                .antMatchers(
+                        "**/badge/new/**"
+                ).hasRole("ADMIN") // only admin can change badges
+
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
