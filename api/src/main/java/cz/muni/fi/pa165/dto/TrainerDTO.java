@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.dto;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,6 +26,10 @@ public class TrainerDTO {
 
     public Long getId() {
         return id;
+    }
+    
+    public void setId(Long id){
+        this.id = id;
     }
 
     public String getFirstName() {

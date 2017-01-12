@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.entity;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -64,6 +63,10 @@ public class Trainer {
      */
     public Long getId() {
         return id;
+    }
+    
+    public void setId(Long id){
+        this.id = id;
     }
 
     /**
