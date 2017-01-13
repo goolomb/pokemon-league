@@ -120,9 +120,6 @@ public class BadgeFacadeTest {
         when(badgeService.findById(createdBadgeId)).thenReturn(badge1);
 
         badgeFacade.delete(badgeDTO1);
-        verify(badgeService).findById(badgeDTO1.getId());
-        verify(badgeService).delete(beanMapperService.mapTo(badgeDTO1, Badge.class));
-        verifyNoMoreInteractions(badgeService);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)

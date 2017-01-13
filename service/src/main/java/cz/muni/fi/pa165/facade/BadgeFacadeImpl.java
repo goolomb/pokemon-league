@@ -74,7 +74,7 @@ public class BadgeFacadeImpl implements BadgeFacade{
         if (badgeService.findById(badgeDTO.getId()) == null) {
             throw new IllegalArgumentException("Badge does not exist.");
         }
-        badgeService.delete(beanMapperService.mapTo(badgeDTO, Badge.class));
+        badgeService.delete(badgeService.findById(badgeDTO.getId()));
     }
 
     @Override

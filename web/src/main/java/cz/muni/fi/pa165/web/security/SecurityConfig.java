@@ -53,6 +53,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "**/badge/new/**"
                 ).hasRole("ADMIN") // only admin can change badges
+                .antMatchers(
+                        "**/badge/remove/**"
+                ).hasRole("ADMIN") // only admin can remove badges
 
                 .anyRequest().authenticated()
                 .and()

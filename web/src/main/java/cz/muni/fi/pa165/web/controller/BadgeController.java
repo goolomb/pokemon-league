@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.web.controller;
 
 import cz.muni.fi.pa165.dto.BadgeDTO;
+import cz.muni.fi.pa165.dto.BadgeCreateDTO;
 import cz.muni.fi.pa165.facade.BadgeFacade;
 import cz.muni.fi.pa165.facade.StadiumFacade;
 import cz.muni.fi.pa165.facade.TrainerFacade;
@@ -11,10 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -40,7 +38,7 @@ public class BadgeController {
     private StadiumFacade stadiumFacade;
 
 
-    @RequestMapping(value = {"", "/", "/index"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"","/index"}, method = RequestMethod.GET)
     public String index(Model model) {
 
         List<BadgeDTO> badges = badgeFacade.findAll();
@@ -48,17 +46,17 @@ public class BadgeController {
         return "badge/index";
     }
 
-    @RequestMapping(value = "/new", method = RequestMethod.GET)
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String newBadge(Model model) {
         model.addAttribute("badgeCreate", new BadgeDTO());
         model.addAttribute("trainers",trainerFacade.findAll());
         model.addAttribute("origins", stadiumFacade.findAll());
-        return "badge/new";
+        return "badge/create";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createBadge (
-            @Valid @ModelAttribute("badgeCreate") BadgeDTO form,
+            @Valid @ModelAttribute("badgeCreate") BadgeCreateDTO form,
             BindingResult bindingResult,
             Model model,
             RedirectAttributes redirectAttributes,
@@ -68,13 +66,27 @@ public class BadgeController {
             for(FieldError fe : bindingResult.getFieldErrors()) {
                 model.addAttribute(fe.getField() + "_error", true);
             }
-            return "badge/new";
+            model.addAttribute("trainers",trainerFacade.findAll());
+            model.addAttribute("origins", stadiumFacade.findAll());
+            return "badge/create";
         }
-        badgeFacade.create(form);
+        BadgeDTO badgeToCreate = new BadgeDTO();
+        badgeToCreate.setTrainer(trainerFacade.findById(form.getTrainer()));
+        badgeToCreate.setOrigin(stadiumFacade.findById(form.getOrigin()));
+        badgeFacade.create(badgeToCreate);
         redirectAttributes.addFlashAttribute("alert_success", "Pokemon was created");
-        return "redirect:" + uriBuilder.path("/badge/list").toUriString();
+        return "redirect:" + uriBuilder.path("/badge/index").toUriString();
     }
 
+    @RequestMapping(value = "/remove/{badgeId}", method = RequestMethod.POST)
+    public String removeBadge(
+            Model model,
+            @PathVariable Long badgeId,
+            UriComponentsBuilder uriBuilder)
+    {
+        badgeFacade.delete(new BadgeDTO(badgeId));
+        return "redirect:" + uriBuilder.path("/badge/index").toUriString();
+    }
 
 
 }

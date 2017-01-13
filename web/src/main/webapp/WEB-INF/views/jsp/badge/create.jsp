@@ -18,8 +18,10 @@
                 <div class="form-group ${trainer_error?'has-error':''}">
                     <form:label path="trainer" cssClass="col-sm-2 control-label">Trainer</form:label>
                     <div class="col-sm-6">
-                    <form:select path="trainer">
-                        <form:options items="${trainers}"/>
+                    <form:select path="trainer" cssClass="form-control">
+                        <c:forEach items="${trainers}" var="t">
+                            <form:option value="${t.id}">${t.firstName} ${t.lastName}</form:option>
+                        </c:forEach>
                     </form:select>
                         <form:errors path="trainer" cssClass="help-block"/>
                     </div>
@@ -28,8 +30,10 @@
                 <div class="form-group ${origin_error?'has-error':''}">
                     <form:label path="origin" cssClass="col-sm-2 control-label">Origin</form:label>
                     <div class="col-sm-6">
-                    <form:select path="origin">
-                        <form:options items="${origins}"/>
+                    <form:select path="origin" cssClass="form-control">
+                        <c:forEach items="${origins}" var="o">
+                            <form:option value="${o.id}">${o.city}</form:option>
+                        </c:forEach>
                     </form:select>
                         <form:errors path="origin" cssClass="help-block"/>
                     </div>
