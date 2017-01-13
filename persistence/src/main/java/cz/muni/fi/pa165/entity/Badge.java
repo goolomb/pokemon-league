@@ -62,8 +62,8 @@ public class Badge {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 17 * hash + (this.origin != null ? this.origin.hashCode() : 0);
-        hash = 17 * hash + (this.trainer != null ? this.trainer.hashCode() : 0);
+        hash = 17 * hash + (getOrigin() != null ? getOrigin().hashCode() : 0);
+        hash = 17 * hash + (getTrainer() != null ? getTrainer().hashCode() : 0);
         return hash;
     }
 

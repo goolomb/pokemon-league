@@ -1,10 +1,16 @@
 
-
+/*min-height: 100%;
+//background-image: url(/pa165/WEB-INF/resources/img/pokemon.jpg);
+background-size: cover;
+background-color: #555555;*/
 html, body {
     margin:0;
     padding:0;
     height:100%;
+    background-size:cover;
+
 }
+
 
 /* Set black background color, white text and some padding */
 footer {
@@ -22,4 +28,11 @@ footer {
     /* Equal to height of footer */
     margin-bottom: -50px;
 }
+
+#logo {
+    width:30px;
+    height:30px;
+    display: inline-block;
+}
+
 

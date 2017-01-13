@@ -1,5 +1,6 @@
 <%@ tag pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ attribute name="title" required="false" %>
 <%@ attribute name="head" required="false" fragment="true" %>
 <%@ attribute name="body" required="true" fragment="true" %>
@@ -18,11 +19,11 @@
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"  crossorigin="anonymous">
-    <link href="${pageContext.request.contextPath}/resources/css//templateStyle.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/templateStyle.css" rel="stylesheet">
 </head>
 
-<body class="body">
-<div class="wrapper">
+<body class="body" background="${pageContext.request.contextPath}/resources/img/pokemon.jpg">
+<div class="content wrapper">
 <!-- navigation bar -->
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -32,10 +33,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="${pageContext.request.contextPath}">Pokémon App</a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}">Pokémon App <img id="logo" src="${pageContext.request.contextPath}/resources/img/Pokeball.PNG"/></a>
+
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav pull-right">
                 <li><a href="${pageContext.request.contextPath}/badge/index">Badges</a></li>
                 <li><a href="${pageContext.request.contextPath}/pokemon/list">Pokemons</a></li>
                 <li><a href="${pageContext.request.contextPath}/trainer/list">Trainers</a></li>
@@ -44,10 +46,10 @@
         </div>
     </div>
 </nav>
-
 <!-- page body -->
-<div class="container-fluid text-center">
-    <div class="row content">
+<div class="container-fluid">
+    <p style="margin: 0 10px 0 0">Logged in as <b><sec:authentication property="principal.username" /></b></p>
+    <div class="row content text-center">
         <div class="col-sm-2 sidenav">
         </div>
         <div class="col-sm-8 text-left">

@@ -8,7 +8,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -17,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Marek Perichta
  */
 @Repository
-@Transactional
 public class BadgeDaoImpl implements BadgeDao{
  
     @PersistenceContext

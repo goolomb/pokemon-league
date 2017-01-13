@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
 * DAO implementation for Trainer
@@ -13,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Martin Golomb
  */
 @Repository
-@Transactional
 public class TrainerDaoImpl implements TrainerDao {
 
     @PersistenceContext

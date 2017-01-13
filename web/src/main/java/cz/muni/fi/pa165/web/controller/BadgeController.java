@@ -38,6 +38,11 @@ public class BadgeController {
     private StadiumFacade stadiumFacade;
 
 
+    /**
+     * Default view for badges with list
+     *
+     * @return jsp /index
+     */
     @RequestMapping(value = {"","/index"}, method = RequestMethod.GET)
     public String index(Model model) {
 
@@ -46,6 +51,11 @@ public class BadgeController {
         return "badge/index";
     }
 
+    /**
+     * Pepares and shows view for badge creation
+     *
+     * @return jsp /create
+     */
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String newBadge(Model model) {
         model.addAttribute("badgeCreate", new BadgeDTO());
@@ -54,6 +64,12 @@ public class BadgeController {
         return "badge/create";
     }
 
+    /**
+     * Creates badge
+     *
+     * @param form of the created badge
+     * @return redirection to default view
+     */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createBadge (
             @Valid @ModelAttribute("badgeCreate") BadgeCreateDTO form,
@@ -78,6 +94,12 @@ public class BadgeController {
         return "redirect:" + uriBuilder.path("/badge/index").toUriString();
     }
 
+    /**
+     * Removes badge
+     *
+     * @param badgeId to remove
+     * @return redirection to default view
+     */
     @RequestMapping(value = "/remove/{badgeId}", method = RequestMethod.POST)
     public String removeBadge(
             Model model,
