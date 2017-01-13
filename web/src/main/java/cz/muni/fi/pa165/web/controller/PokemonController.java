@@ -92,6 +92,52 @@ public class PokemonController {
         return "pokemon/list";
     }
 
+    /**
+     * Filling form for edit
+     */
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String editPokemon(@PathVariable long id, Model m) {
+        PokemonCreateDTO form = new PokemonCreateDTO();
+        PokemonDTO pokemonDTO = pokemonFacade.findById(id);
+        form.setId(pokemonDTO.getId());
+        form.setType(pokemonDTO.getType());
+        form.setLevel(pokemonDTO.getLevel());
+        form.setNickname(pokemonDTO.getNickname());
+        form.setName(pokemonDTO.getName());
+        TrainerDTO trainer = pokemonDTO.getTrainer();
+        form.setTrainer(trainer == null ? null : trainer.getId());
+        m.addAttribute("pokemonEdit", form);
+        return "pokemon/edit";
+    }
+
+    /**
+     * Edit Pokemon
+     */
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public String edit(@Valid @ModelAttribute("pokemonEdit") PokemonCreateDTO form, BindingResult bindingResult,
+                       Model m, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+
+        if (bindingResult.hasErrors()) {
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                m.addAttribute(fe.getField() + "_error", true);
+            }
+
+            return "pokemon/edit";
+        }
+        PokemonDTO editedPokemon = new PokemonDTO();
+        editedPokemon.setId(form.getId());
+        editedPokemon.setType(form.getType());
+        editedPokemon.setName(form.getName());
+        editedPokemon.setLevel(form.getLevel());
+        editedPokemon.setNickname(form.getNickname());
+        Long trainer = form.getTrainer();
+        editedPokemon.setTrainer(trainer == null ? null : trainerFacade.findById(trainer));
+        pokemonFacade.update(editedPokemon);
+        redirectAttributes.addFlashAttribute("alert_success", "Pokemon " + editedPokemon.getName() + " " + editedPokemon.getNickname() + " was edited");
+        return "redirect:" + uriBuilder.path("/pokemon/list").toUriString();
+    }
+
+
     @RequestMapping(value = "/withtrainer", method = RequestMethod.GET)
     public String findWithTrainer(@PathVariable Long trainerId, Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         if (trainerId == null) {
@@ -107,4 +153,6 @@ public class PokemonController {
         }
         return "/pokemon/list";
     }
+
+
 }

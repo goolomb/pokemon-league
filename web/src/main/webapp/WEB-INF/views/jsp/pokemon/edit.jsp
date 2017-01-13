@@ -8,8 +8,8 @@
 
 <t:template>
     <jsp:attribute name="body">
-        <form:form method="post" action="${pageContext.request.contextPath}/pokemon/create"
-                   modelAttribute="pokemonCreate" cssClass="form-horizontal">
+        <form:form method="post" action="${pageContext.request.contextPath}/pokemon/edit"
+                   modelAttribute="pokemonEdit" cssClass="form-horizontal">
     <div class="form-group">
         <form:label path="name" cssClass="col-sm-1 control-label">Name</form:label>
         <div class="col-sm-5">
@@ -31,13 +31,11 @@
                     <form:errors path="level" cssClass="help-block"/>
                 </div>
             </div>
-        <div class="form-group">
-            <form:label path="type" cssClass="col-sm-1 control-label">Type</form:label>
-            <div class="col-sm-5">
+        <div class="form-group ${type_error?'has-error':''}">
+            <form:label path="type" cssClass="col-sm-2 control-label">Pokemon Type</form:label>
+            <div class="col-sm-4" cssClass="form-control">
                     <form:select path="type" cssClass="form-control">
-                        <c:forEach items="${types}" var="type">
-                            <form:option value="${type}">${type}</form:option>
-                        </c:forEach>
+                        <form:options items="${types}"/>
                     </form:select>
                 <form:errors path="type" cssClass="help-block"/>
             </div>
@@ -54,7 +52,7 @@
             </div>
         </div>
 
-            <button class="btn btn-primary" type="submit">Create pokemon</button>
+            <button class="btn btn-primary" type="submit">Edit pokemon</button>
         </form:form>
     </jsp:attribute>
 </t:template>
