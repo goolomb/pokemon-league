@@ -43,7 +43,7 @@
             <div class="col-sm-5">
                     <form:select path="trainer" cssClass="form-control">
                         <c:forEach items="${trainers}" var="trainer">
-                            <form:option value="${trainer}">${trainer.firstName} ${trainer.lastName}</form:option>
+                            <form:option value="${trainer.id}">${trainer.firstName} ${trainer.lastName}</form:option>
                         </c:forEach>
                     </form:select>
                 <form:errors path="trainer" cssClass="help-block"/>

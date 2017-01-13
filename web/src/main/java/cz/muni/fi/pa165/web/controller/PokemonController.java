@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.web.controller;
 
+import cz.muni.fi.pa165.dto.PokemonCreateDTO;
 import cz.muni.fi.pa165.dto.PokemonDTO;
 import cz.muni.fi.pa165.dto.TrainerDTO;
 import cz.muni.fi.pa165.enums.PokemonType;
@@ -42,7 +43,9 @@ public class PokemonController {
 
     @ModelAttribute("trainers")
     public Collection<TrainerDTO> trainers() {
-        return trainerFacade.findAll();
+        Collection<TrainerDTO> collection = trainerFacade.findAll();
+        collection.add(null);
+        return collection;
     }
 
     @ModelAttribute("pokemons")
@@ -52,12 +55,12 @@ public class PokemonController {
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newPokemon(Model model) {
-        model.addAttribute("pokemonCreate", new PokemonDTO());
+        model.addAttribute("pokemonCreate", new PokemonCreateDTO());
         return "pokemon/new";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(@Valid @ModelAttribute("pokemonCreate") PokemonDTO form, BindingResult bindingResult,
+    public String create(@Valid @ModelAttribute("pokemonCreate") PokemonCreateDTO form, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder)
     {
         if (bindingResult.hasErrors()) {
@@ -67,7 +70,13 @@ public class PokemonController {
             redirectAttributes.addFlashAttribute("alert_error", "Pokemon was not created.");
             return "pokemon/new";
         }
-        pokemonFacade.create(form);
+        PokemonDTO pokemonDTO = new PokemonDTO();
+        pokemonDTO.setName(form.getName());
+        pokemonDTO.setNickname(form.getNickname());
+        pokemonDTO.setLevel(form.getLevel());
+        pokemonDTO.setType(form.getType());
+        pokemonDTO.setTrainer(form.getTrainer() == null ? null : trainerFacade.findById(form.getTrainer()));
+        pokemonFacade.create(pokemonDTO);
         redirectAttributes.addFlashAttribute("alert_success", "Pokemon was created");
         return "redirect:" + uriBuilder.path("/pokemon/list").toUriString();
     }
