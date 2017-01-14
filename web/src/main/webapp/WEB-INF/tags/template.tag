@@ -42,13 +42,19 @@
                 <li><a href="${pageContext.request.contextPath}/pokemon/list">Pokemons</a></li>
                 <li><a href="${pageContext.request.contextPath}/trainer/list">Trainers</a></li>
                 <li><a href="${pageContext.request.contextPath}/stadium/list">Stadiums</a></li>
+                <sec:authorize access="isAuthenticated()">
+                    <li><a href="${pageContext.request.contextPath}/logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Log Out</a></li>
+                </sec:authorize>
             </ul>
         </div>
     </div>
 </nav>
 <!-- page body -->
 <div class="container-fluid">
+    <sec:authorize access="isAuthenticated()">
     <p style="margin: 0 10px 0 0">Logged in as <b><sec:authentication property="principal.username" /></b></p>
+
+    </sec:authorize>
     <div class="row content text-center">
         <div class="col-sm-2 sidenav">
         </div>
