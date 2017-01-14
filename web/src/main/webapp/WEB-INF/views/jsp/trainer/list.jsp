@@ -11,6 +11,7 @@
 <t:template>
     <jsp:attribute name="body">
 
+        <h2 align="center">Trainers</h2>
         <sec:authorize access="hasRole('ADMIN')">
             <a href="/pa165/trainer/new" class="btn btn-default">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -47,13 +48,20 @@
                         </td>
 
                         <td>
-                            <form:form method="post" action="${pageContext.request.contextPath}/trainer/delete/${trainer.id}">
-                                <button class="btn btn-default" type="submit" style="color:#B22222;">
-                                    <span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>
-                                </button>
-                            </form:form>
+                            <sec:authorize access="hasRole('ADMIN')">
+                                <form:form method="post" action="${pageContext.request.contextPath}/trainer/delete/${trainer.id}">
+                                    <button class="btn btn-default" type="submit" style="color:#B22222;">
+                                        <span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>
+                                    </button>
+                                </form:form>
+                            </sec:authorize>
                         </td>
 
+                        <td>
+                            <a href="<c:url value="/trainer/view/${trainer.id}" />" class="btn btn-default btn-xs"/>View
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                            </a>
+                        </td>
                     </tr>
                 </c:forEach>
             </tbody>

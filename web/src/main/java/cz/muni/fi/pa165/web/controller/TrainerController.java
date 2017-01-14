@@ -81,19 +81,14 @@ public class TrainerController {
                 System.out.println("FieldError: {}" + fe);
             }
 
-            /*model.addAttribute("pokemons", pokemonFacade.findAll());
-            model.addAttribute("stadiums", stadiumFacade.findAll());
-            model.addAttribute("badges", badgeFacade.findAll());
-             */
             return "trainer/new";
         }
+
         TrainerDTO trainerDTO = new TrainerDTO();
         trainerDTO.setFirstName(form.getFirstName());
         trainerDTO.setLastName(form.getLastName());
         trainerDTO.setBirthDate(form.getBirthDate());
-        /*trainerDTO.setBadges(form.getBadges() == null ? null : (form.getBadges()));
-        trainerDTO.setPokemons(form.getPokemons() == null ? null : (form.getPokemons()));
-         */
+
         trainerFacade.create(trainerDTO);
 
         redirectAttributes.addFlashAttribute("alert_success", "Trainer was created");
@@ -115,62 +110,38 @@ public class TrainerController {
         return map;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String getTrainer(@PathVariable("id") long id, Model model) {
-        TrainerDTO trainer = trainerFacade.findById(id);
-
-        model.addAttribute("trainer", trainer);
-        model.addAttribute("pokemons", trainer.getPokemons());
-        model.addAttribute("badges", trainer.getBadges());
-
-        return "trainer/detail";
+    @RequestMapping(value = "/trainer/view/{id}", method = RequestMethod.GET)
+    public String view(@PathVariable long id, Model model) {
+        Map<Long, StadiumDTO> badgesAndStadiums = new HashMap<Long, StadiumDTO>();
+        for (BadgeDTO b : badgeFacade.findAll()) {
+            badgesAndStadiums.put(b.getId(), stadiumFacade.findById(b.getId()));
+        }
+        model.addAttribute("trainer", trainerFacade.findById(id));
+        model.addAttribute("stadiumsMap", badgesAndStadiums);
+        return "/trainer/view";
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, Model m, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
-        TrainerDTO trainer = trainerFacade.findById(id);
-
+        TrainerDTO trainerDTO = trainerFacade.findById(id);
         try {
-            /*Collection<PokemonDTO> pokemons = trainer.getPokemons();
-            if (pokemons != null) {
-                System.out.println(pokemons.size() + " num of pokemonsssssss");
-                for (PokemonDTO pokemonDTO : pokemons) {
-                    pokemonDTO.setTrainer(null);
-                    pokemonFacade.update(pokemonDTO);
-                }
-            }
-
-            Collection<BadgeDTO> badges = trainer.getBadges();
-            if (badges != null) {
-                for (BadgeDTO b : badges) {
-                    b.setTrainer(null);
-                    badgeFacade.update(b);
-                }
-            }*/
-            System.out.println("heerree");
-            trainerFacade.delete(trainer);
-            System.out.println("thheerree");
-            
-        } catch (Exception ex) {
-            redirectAttributes.addFlashAttribute("alert_error", "Trainer not deleted: " + ex.getMessage());
-            return "redirect:" + "/trainer/list";
+            trainerFacade.delete(trainerFacade.findById(trainerDTO.getId()));
+            redirectAttributes.addFlashAttribute("alert_success", "Trainer " + trainerDTO.getFirstName() + " " + trainerDTO.getLastName() + " was deleted.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("alert_danger", "Trainer " + trainerDTO.getFirstName() + " " + trainerDTO.getLastName() + " cannot be deleted. ");
         }
-        redirectAttributes.addFlashAttribute("alert_success", "Trainer was deleted successfully.");
         return "redirect:" + uriBuilder.path("/trainer/list").toUriString();
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String editTrainer(@PathVariable long id, Model model) {
         TrainerDTO trainer = trainerFacade.findById(id);
-        /*if (trainer == null) {
-            return "redirect:/trainer";
-        }*/
         model.addAttribute("trainer", trainer);
         return "trainer/edit";
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String editTrainer(@ModelAttribute("editTrainer") TrainerDTO form, BindingResult bindingResult,
+    public String editTrainer(@ModelAttribute("trainer") TrainerDTO form, BindingResult bindingResult,
             Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         if (bindingResult.hasErrors()) {
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
@@ -183,18 +154,10 @@ public class TrainerController {
 
             model.addAttribute("trainer", trainerFacade.findById(form.getId()));
             redirectAttributes.addFlashAttribute("alert_error", "There was a problem with updating trainer.");
-            return "trainer/edit";
+            return "trainer/edit" + form.getId();
         }
         try {
             TrainerDTO toUpdate = new TrainerDTO();
-
-            toUpdate.setFirstName(form.getFirstName());
-            toUpdate.setLastName(form.getLastName());
-            toUpdate.setBirthDate(form.getBirthDate());
-            toUpdate.setId(form.getId());
-            toUpdate.setBadges(form.getBadges());
-            toUpdate.setPokemons(form.getPokemons());
-
             trainerFacade.update(form);
         } catch (Exception ex) {
             redirectAttributes.addFlashAttribute("alert_error", "There was a problem with updating trainer: " + ex.getMessage());
