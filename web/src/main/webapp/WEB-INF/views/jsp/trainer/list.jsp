@@ -1,11 +1,12 @@
 <%-- 
     Author     : Martin Golomb (goolomb)
 --%>
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <t:template>
     <jsp:attribute name="body">
@@ -26,7 +27,6 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Birth Date</th>
-                    <th>Pokemons</th>
                     <th>Badges</th>
                 </tr>
             </thead>
@@ -37,21 +37,26 @@
                         <td><c:out value="${trainer.firstName}"/></td>
                         <td><c:out value="${trainer.lastName}"/></td>
                         <td><fmt:formatDate value="${trainer.birthDate}" pattern="dd.MM.yyyy" /></td>
-            <%--<td>
-                <c:forEach items="${trainer.pokemons}" var="pokemon">
-                    <c:out value="${pokemon.name} "/>
-                </c:forEach>
-            </td>
-            <td>
-                <c:forEach items="${trainer.badges}" var="badge">
-                    <c:out value="${badge.origin.city} "/>
-                </c:forEach>
-            </td>
-            --%>
+                        <td><c:out value="${badgesCount[trainer.id]}"/></td>
+                        <td>
+                            <sec:authorize access="hasRole('ADMIN')">
+                                <a href="<c:url value="/trainer/edit/${trainer.id}" />" class="btn btn-default btn-xs"/>Edit
+                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                </a>
+                            </sec:authorize>
+                        </td>
 
-        </tr>
-    </c:forEach>
-</tbody>
-</table>
-</jsp:attribute>
+                        <td>
+                            <form:form method="post" action="${pageContext.request.contextPath}/trainer/delete/${trainer.id}">
+                                <button class="btn btn-default" type="submit" style="color:#B22222;">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>
+                                </button>
+                            </form:form>
+                        </td>
+
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </jsp:attribute>
 </t:template>
