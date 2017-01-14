@@ -10,7 +10,8 @@
     <jsp:attribute name="body">
         <form:form method="post" action="${pageContext.request.contextPath}/pokemon/edit"
                    modelAttribute="pokemonEdit" cssClass="form-horizontal">
-    <div class="form-group">
+    <form:hidden path="id" />
+            <div class="form-group">
         <form:label path="name" cssClass="col-sm-1 control-label">Name</form:label>
         <div class="col-sm-5">
             <form:input path="name" cssClass="form-control"/>
