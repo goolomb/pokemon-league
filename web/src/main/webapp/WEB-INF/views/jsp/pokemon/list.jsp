@@ -50,6 +50,14 @@
                             </a>
                             </sec:authorize>
                         </td>
+                        <td>
+                            <sec:authorize access="hasRole('ADMIN')">
+                            <a href="<c:url value="/pokemon/delete/${pokemon.id}" />" class="btn btn-default btn-xs"/>
+                                Delete
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            </a>
+                            </sec:authorize>
+                        </td>
                     </tr>
                 </c:forEach>
             </tbody>

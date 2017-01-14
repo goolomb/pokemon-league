@@ -108,6 +108,7 @@ public class DataInitializer {
         pokemon1.setNickname("pika");
         pokemon1.addType(PokemonType.NORMAL);
         pokemon1.addType(PokemonType.ELECTRIC);
+        pokemon1.setTrainer(trainer1);
 
         pokemon2 = new Pokemon();
         pokemon2.setName("Bulbasaur");
@@ -123,5 +124,6 @@ public class DataInitializer {
         badge1.setTrainer(trainer1);
 
         badgeService.create(badge1);
+
     }
 }

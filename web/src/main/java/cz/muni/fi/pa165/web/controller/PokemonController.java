@@ -137,6 +137,19 @@ public class PokemonController {
         return "redirect:" + uriBuilder.path("/pokemon/list").toUriString();
     }
 
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+        PokemonDTO toBeDeleted = pokemonFacade.findById(id);
+
+        try{
+            pokemonFacade.delete(toBeDeleted);
+            redirectAttributes.addFlashAttribute("alert_success", "Pokemon " + toBeDeleted.getName() + " " + toBeDeleted.getNickname() + " was deleted.");
+        }catch(Exception e){
+            redirectAttributes.addFlashAttribute("alert_danger", "Pokemon " + toBeDeleted.getName() + " " + toBeDeleted.getNickname() + " cannot be deleted. ");
+        }
+
+        return "redirect:" + uriBuilder.path("/pokemon/list").toUriString();
+    }
 
     @RequestMapping(value = "/withtrainer", method = RequestMethod.GET)
     public String findWithTrainer(@PathVariable Long trainerId, Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
