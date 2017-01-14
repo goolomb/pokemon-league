@@ -9,6 +9,9 @@
 
 <t:template>
     <jsp:attribute name="body">
+
+        <h2 align="center">Pokemons</h2>
+
         <sec:authorize access="hasRole('ADMIN')">
 
             <a href="/pa165/pokemon/new" class="btn btn-default">

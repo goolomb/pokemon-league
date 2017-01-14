@@ -53,12 +53,18 @@ public class PokemonController {
         return pokemonFacade.findAll();
     }
 
+    /**
+     * Creates empty pokemon
+     */
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newPokemon(Model model) {
         model.addAttribute("pokemonCreate", new PokemonCreateDTO());
         return "pokemon/new";
     }
 
+    /**
+     * Creates new pokemon with data from form
+     */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute("pokemonCreate") PokemonCreateDTO form, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder)
@@ -81,11 +87,9 @@ public class PokemonController {
         return "redirect:" + uriBuilder.path("/pokemon/list").toUriString();
     }
 
-    @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
-    public String view(@PathVariable long id, Model model) {
-        model.addAttribute("pokemon", pokemonFacade.findById(id));
-        return "/pokemon/view";
-    }
+    /**
+     * Returns list of all pokemons
+     */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
         model.addAttribute("pokemons", pokemonFacade.findAll());
@@ -137,6 +141,9 @@ public class PokemonController {
         return "redirect:" + uriBuilder.path("/pokemon/list").toUriString();
     }
 
+    /**
+     * Deletes pokemon with given ID
+     */
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         PokemonDTO toBeDeleted = pokemonFacade.findById(id);
@@ -150,22 +157,5 @@ public class PokemonController {
 
         return "redirect:" + uriBuilder.path("/pokemon/list").toUriString();
     }
-
-    @RequestMapping(value = "/withtrainer", method = RequestMethod.GET)
-    public String findWithTrainer(@PathVariable Long trainerId, Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
-        if (trainerId == null) {
-            redirectAttributes.addFlashAttribute("alert_danger", "Unable to retrieve pokemon. Trainer ID is invalid.");
-            return "redirect:" + uriBuilder.path("/pokemon/list").toUriString();
-        }
-        try {
-            TrainerDTO byId = trainerFacade.findById(trainerId);
-            model.addAttribute("pokemons", pokemonFacade.findByTrainer(byId));
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("alert_danger", "Unable to retrieve pokemon.");
-            return "redirect:" + uriBuilder.path("/pokemon/list").toUriString();
-        }
-        return "/pokemon/list";
-    }
-
 
 }
