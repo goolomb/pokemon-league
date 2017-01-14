@@ -34,7 +34,7 @@
 
 
             <div class="form-group ${leaderId_error?'has-error':''}">
-                <form:label path="leaderId" cssClass="col-sm-2 control-label">Trainer</form:label>
+                <form:label path="leaderId" cssClass="col-sm-2 control-label">Leader</form:label>
                     <div class="col-sm-4">
                     <form:select path="leaderId" cssClass="form-control">
                         <form:option value="${chosenTrainer.id}">${chosenTrainer.firstName} ${chosenTrainer.lastName}</form:option>>

@@ -68,7 +68,7 @@ public class StadiumController {
         newStadium.setCity(form.getCity());
         newStadium.setLeader(trainerFacade.findById(form.getLeaderId()));
         stadiumFacade.create(newStadium);
-        redirectAttributes.addFlashAttribute("alert_success", "Stadium " + newStadium.getCity() + "was created");
+        redirectAttributes.addFlashAttribute("alert_success", "Stadium \"" + newStadium.getCity() + "\" was created");
         return "redirect:" + uriBuilder.path("/stadium/list").toUriString();
     }
 
@@ -87,8 +87,12 @@ public class StadiumController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, Model m, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         StadiumDTO stadium = stadiumFacade.findById(id);
+        try{        
         stadiumFacade.delete(id);
         redirectAttributes.addFlashAttribute("alert_success", "Stadium \"" + stadium.getCity() + "\" was deleted.");
+        }catch(Exception e){
+            redirectAttributes.addFlashAttribute("alert_danger", "Stadium \"" + stadium.getCity() + "\" cannot be deleted due to usage in badge.");
+        }
         return "redirect:" + uriBuilder.path("/stadium/list").toUriString();
     }
 
@@ -140,7 +144,7 @@ public class StadiumController {
         editedStadium.setCity(form.getCity());
         editedStadium.setLeader(trainerFacade.findById(form.getLeaderId()));
         stadiumFacade.update(editedStadium);
-        redirectAttributes.addFlashAttribute("alert_success", "Stadium " + editedStadium.getCity() + "was edited");
+        redirectAttributes.addFlashAttribute("alert_success", "Stadium \"" + editedStadium.getCity() + "\" was edited");
         return "redirect:" + uriBuilder.path("/stadium/list").toUriString();
     }
 
