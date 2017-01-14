@@ -56,12 +56,6 @@
                                 </form:form>
                             </sec:authorize>
                         </td>
-
-                        <td>
-                            <a href="<c:url value="/trainer/view/${trainer.id}" />" class="btn btn-default btn-xs"/>View
-                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                            </a>
-                        </td>
                     </tr>
                 </c:forEach>
             </tbody>
