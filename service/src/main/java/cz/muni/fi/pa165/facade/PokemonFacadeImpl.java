@@ -56,4 +56,11 @@ public class PokemonFacadeImpl implements PokemonFacade {
         Pokemon p = beanMapperService.mapTo(pokemon,Pokemon.class);
         return beanMapperService.mapTo(pokemonService.update(p), PokemonDTO.class);
     }
+    
+    @Override
+    public void tradePokemon(PokemonDTO pokemon1,PokemonDTO pokemon2) {
+        Pokemon p1 = beanMapperService.mapTo(pokemon1,Pokemon.class);
+        Pokemon p2 = beanMapperService.mapTo(pokemon2,Pokemon.class);
+        pokemonService.tradePokemon(p1, p2);
+    }
 }

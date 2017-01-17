@@ -21,4 +21,6 @@ public interface PokemonFacade {
     List<PokemonDTO> findByTrainer(TrainerDTO trainer);
 
     PokemonDTO update(PokemonDTO pokemon);
+    
+    void tradePokemon(PokemonDTO pokemon1, PokemonDTO pokemon2);
 }

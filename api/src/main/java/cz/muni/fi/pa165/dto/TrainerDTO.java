@@ -1,8 +1,8 @@
 package cz.muni.fi.pa165.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 /**
  * Trainer data transfer object
@@ -14,8 +14,8 @@ public class TrainerDTO {
     private String firstName;
     private String lastName;
     private Date birthDate;
-    private Set<BadgeDTO> badges = new HashSet<BadgeDTO>();
-    private Set<PokemonDTO> pokemons = new HashSet<PokemonDTO>();
+    private List<BadgeDTO> badges = new ArrayList<BadgeDTO>();
+    private List<PokemonDTO> pokemons = new ArrayList<PokemonDTO>();
 
     public TrainerDTO(Long trainerId) {
         this.id = trainerId;
@@ -59,11 +59,11 @@ public class TrainerDTO {
         return this;
     }
 
-    public Set<BadgeDTO> getBadges() {
+    public List<BadgeDTO> getBadges() {
         return badges;
     }
 
-    public TrainerDTO setBadges(Set<BadgeDTO> badges) {
+    public TrainerDTO setBadges(List<BadgeDTO> badges) {
         this.badges = badges;
         return this;
     }
@@ -78,11 +78,11 @@ public class TrainerDTO {
         badge.setTrainer(null);
     }
 
-    public Set<PokemonDTO> getPokemons() {
+    public List<PokemonDTO> getPokemons() {
         return pokemons;
     }
 
-    public TrainerDTO setPokemons(Set<PokemonDTO> pokemons) {
+    public TrainerDTO setPokemons(List<PokemonDTO> pokemons) {
         this.pokemons = pokemons;
         return this;
     }

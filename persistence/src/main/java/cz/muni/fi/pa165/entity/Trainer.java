@@ -1,8 +1,8 @@
 package cz.muni.fi.pa165.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -36,11 +36,11 @@ public class Trainer {
     
     @OneToMany
     @ElementCollection(targetClass=Badge.class)
-    private Set<Badge> badges = new HashSet<Badge>();
+    private List<Badge> badges = new ArrayList<Badge>();
     
-    @OneToMany
+    @OneToMany(mappedBy="trainer")
     @ElementCollection(targetClass=Pokemon.class)
-    private Set<Pokemon> pokemons = new HashSet<Pokemon>();
+    private List<Pokemon> pokemons = new ArrayList<Pokemon>();
 
     
     /**
@@ -127,7 +127,7 @@ public class Trainer {
      * Method returns badges of Trainer
      * @return collection of badges of Trainer
      */
-    public Set<Badge> getBadges() {
+    public List<Badge> getBadges() {
         return badges;
     }
 
@@ -136,7 +136,7 @@ public class Trainer {
      * @param badges badges to Trainer
      * @return this Trainer
      */
-    public Trainer setBadges(Set<Badge> badges) {
+    public Trainer setBadges(List<Badge> badges) {
         this.badges = badges;
         return this;
     }
@@ -163,7 +163,7 @@ public class Trainer {
      * Method returns pokemons of Trainer
      * @return collection of pokemons of Trainer
      */
-    public Set<Pokemon> getPokemons() {
+    public List<Pokemon> getPokemons() {
         return pokemons;
     }
 
@@ -172,7 +172,7 @@ public class Trainer {
      * @param pokemons pokemons to Trainer
      * @return this Trainer
      */
-    public Trainer setPokemons(Set<Pokemon> pokemons) {
+    public Trainer setPokemons(List<Pokemon> pokemons) {
         this.pokemons = pokemons;
         return this;
     }

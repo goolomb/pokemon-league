@@ -66,8 +66,9 @@ public class BadgeDTO {
 
     @Override
     public int hashCode() {
-        int result = getOrigin().hashCode();
-        result = 31 * result + getTrainer().hashCode();
+        int result = 1;
+        result = 31 * result + ((getOrigin() == null) ? 0 : getOrigin().hashCode());
+        result = 31 * result + ((getOrigin() == null) ? 0 : getTrainer().hashCode());
         return result;
     }
 }

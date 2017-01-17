@@ -18,6 +18,10 @@
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 New Pokemon
             </a>
+            <a href="/pa165/pokemon/tradepokemonnew" class="btn btn-default">
+                <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span>
+                Trade Pokemon
+            </a>
         </sec:authorize>
 
         <table class="table">

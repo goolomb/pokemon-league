@@ -1,5 +1,4 @@
 
-
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:template>
@@ -18,7 +17,7 @@
             </div>
             <div class="col-md-3">
                 <a href="${pageContext.request.contextPath}/stadium/list" class="btn btn-primary btn-lg">Stadiums</a>
-            </div>
+            </div>            
         </div>
     </jsp:attribute>
 </t:template>

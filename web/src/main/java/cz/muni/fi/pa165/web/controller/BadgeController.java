@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.web.controller;
 
 import cz.muni.fi.pa165.dto.BadgeDTO;
 import cz.muni.fi.pa165.dto.BadgeCreateDTO;
+import cz.muni.fi.pa165.dto.TrainerDTO;
 import cz.muni.fi.pa165.facade.BadgeFacade;
 import cz.muni.fi.pa165.facade.StadiumFacade;
 import cz.muni.fi.pa165.facade.TrainerFacade;
@@ -37,13 +38,12 @@ public class BadgeController {
     @Autowired
     private StadiumFacade stadiumFacade;
 
-
     /**
      * Default view for badges with list
      *
      * @return jsp /index
      */
-    @RequestMapping(value = {"","/index"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"", "/index"}, method = RequestMethod.GET)
     public String index(Model model) {
 
         List<BadgeDTO> badges = badgeFacade.findAll();
@@ -59,7 +59,7 @@ public class BadgeController {
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String newBadge(Model model) {
         model.addAttribute("badgeCreate", new BadgeDTO());
-        model.addAttribute("trainers",trainerFacade.findAll());
+        model.addAttribute("trainers", trainerFacade.findAll());
         model.addAttribute("origins", stadiumFacade.findAll());
         return "badge/create";
     }
@@ -71,26 +71,29 @@ public class BadgeController {
      * @return redirection to default view
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String createBadge (
+    public String createBadge(
             @Valid @ModelAttribute("badgeCreate") BadgeCreateDTO form,
             BindingResult bindingResult,
             Model model,
             RedirectAttributes redirectAttributes,
-            UriComponentsBuilder uriBuilder)
-    {
+            UriComponentsBuilder uriBuilder) {
         if (bindingResult.hasErrors()) {
-            for(FieldError fe : bindingResult.getFieldErrors()) {
+            for (FieldError fe : bindingResult.getFieldErrors()) {
                 model.addAttribute(fe.getField() + "_error", true);
             }
-            model.addAttribute("trainers",trainerFacade.findAll());
+            model.addAttribute("trainers", trainerFacade.findAll());
             model.addAttribute("origins", stadiumFacade.findAll());
             return "badge/create";
         }
-        BadgeDTO badgeToCreate = new BadgeDTO();
-        badgeToCreate.setTrainer(trainerFacade.findById(form.getTrainer()));
-        badgeToCreate.setOrigin(stadiumFacade.findById(form.getOrigin()));
-        badgeFacade.create(badgeToCreate);
-        redirectAttributes.addFlashAttribute("alert_success", "Pokemon was created");
+        try {
+            stadiumFacade.giveBadgeToTrainer(stadiumFacade.findById(form.getOrigin()),
+                    trainerFacade.findById(form.getTrainer()));
+            redirectAttributes.addFlashAttribute("alert_success", "Badge was created");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("alert_danger",
+                    "Badge could not be created. Trainer already have this badge or trainer is leader of this stadium and cannot earn this badge.");
+        }
+        
         return "redirect:" + uriBuilder.path("/badge/index").toUriString();
     }
 
@@ -104,11 +107,20 @@ public class BadgeController {
     public String removeBadge(
             Model model,
             @PathVariable Long badgeId,
-            UriComponentsBuilder uriBuilder)
-    {
-        badgeFacade.delete(new BadgeDTO(badgeId));
+            RedirectAttributes redirectAttributes,
+            UriComponentsBuilder uriBuilder) {
+        try {
+            BadgeDTO b = badgeFacade.findById(badgeId);
+            TrainerDTO t = b.getTrainer();
+            t.removeBadge(b);
+            trainerFacade.update(t);
+            badgeFacade.delete(new BadgeDTO(badgeId));
+            redirectAttributes.addFlashAttribute("alert_success", "Badge was deleted.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("alert_danger", "Badge could not be deleted.");
+        }
+
         return "redirect:" + uriBuilder.path("/badge/index").toUriString();
     }
-
 
 }

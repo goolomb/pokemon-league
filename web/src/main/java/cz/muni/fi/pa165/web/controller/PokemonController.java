@@ -2,10 +2,12 @@ package cz.muni.fi.pa165.web.controller;
 
 import cz.muni.fi.pa165.dto.PokemonCreateDTO;
 import cz.muni.fi.pa165.dto.PokemonDTO;
+import cz.muni.fi.pa165.dto.TradePokemonDTO;
 import cz.muni.fi.pa165.dto.TrainerDTO;
 import cz.muni.fi.pa165.enums.PokemonType;
 import cz.muni.fi.pa165.facade.PokemonFacade;
 import cz.muni.fi.pa165.facade.TrainerFacade;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Martina Minatova
@@ -157,5 +160,46 @@ public class PokemonController {
 
         return "redirect:" + uriBuilder.path("/pokemon/list").toUriString();
     }
-
+    
+    /**
+     * Prepare form for trade pokemon
+     */
+    @RequestMapping(value = "/tradepokemonnew", method = RequestMethod.GET)
+    public String tradePokemonNew(Model model) {
+        model.addAttribute("tradePokemon", new TradePokemonDTO());
+        List<PokemonDTO> pokemons = pokemonFacade.findAll();
+        List<PokemonDTO> pokemonWithoutTrainer = new ArrayList<PokemonDTO>();
+        //delete pokemons with null trainer
+        for(PokemonDTO p : pokemons){
+            if(p.getTrainer() == null){
+                pokemonWithoutTrainer.add(p);
+            }
+        }
+        pokemons.removeAll(pokemonWithoutTrainer);
+        model.addAttribute("pokemons", pokemons);
+        return "pokemon/tradepokemon";
+    }
+    
+    /**
+     * Trade pokemon between trainers
+     */
+    @RequestMapping(value = "/tradepokemon", method = RequestMethod.POST)
+    public String tradePokemon(@Valid @ModelAttribute("tradePokemon") TradePokemonDTO form,
+                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder)
+    {
+        PokemonDTO p1 = pokemonFacade.findById(form.getPokemon1Id());
+        PokemonDTO p2 = pokemonFacade.findById(form.getPokemon2Id());
+        if(p1.getTrainer().equals(p2.getTrainer())){
+            redirectAttributes.addFlashAttribute("alert_warning", "Cannot do that. Trainer owns both pokemons.");
+            return "redirect:" + uriBuilder.path("/pokemon/tradepokemonnew").toUriString();
+        }
+//        try{
+            pokemonFacade.tradePokemon(p1, p2);
+            redirectAttributes.addFlashAttribute("alert_success", "Trade was completed.");
+//        }catch(Exception e){
+//            redirectAttributes.addFlashAttribute("alert_danger", e.getMessage());
+//        }        
+        
+        return "redirect:" + uriBuilder.path("/pokemon/list").toUriString();
+    }
 }

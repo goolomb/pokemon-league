@@ -17,6 +17,10 @@
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 New Trainer
             </a>
+            <a href="/pa165/badge/create" class="btn btn-default">
+                <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                Give Badge to Trainer
+            </a>
         </sec:authorize>
 
 

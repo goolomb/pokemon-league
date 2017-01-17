@@ -16,8 +16,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 /**
  * @author Martina Minatova
@@ -31,7 +29,10 @@ public class DataInitializer {
     private Trainer leader2;
     private Pokemon pokemon1;
     private Pokemon pokemon2;
+    private Pokemon pokemon3;
+    private Pokemon pokemon4;
     private Badge badge1;
+    private Badge badge2;
     private Stadium stadium1;
     private Stadium stadium2;
 
@@ -115,15 +116,30 @@ public class DataInitializer {
         pokemon2.setLevel(10);
         pokemon2.setNickname("bulbik");
         pokemon2.addType(PokemonType.GRASS);
+        
+        pokemon3 = new Pokemon();
+        pokemon3.setName("Charizard");
+        pokemon3.setLevel(5);
+        pokemon3.setNickname("chari");
+        pokemon3.addType(PokemonType.FIRE);
+        pokemon3.addType(PokemonType.DRAGON);
+        pokemon3.setTrainer(leader1);
+        
+        pokemon4 = new Pokemon();
+        pokemon4.setName("Pidgey");
+        pokemon4.setLevel(15);
+        pokemon4.setNickname("poppy");
+        pokemon4.addType(PokemonType.NORMAL);
+        pokemon4.addType(PokemonType.FLYING);
+        pokemon4.setTrainer(leader2);
 
         pokemonService.create(pokemon1);
         pokemonService.create(pokemon2);
+        pokemonService.create(pokemon3);
+        pokemonService.create(pokemon4);
 
-        badge1 = new Badge();
-        badge1.setOrigin(stadium1);
-        badge1.setTrainer(trainer1);
-
-        badgeService.create(badge1);
+        stadiumService.giveBadgeToTrainer(stadium1, trainer1);
+        stadiumService.giveBadgeToTrainer(stadium2, trainer2);
 
     }
 }

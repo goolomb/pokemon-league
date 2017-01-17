@@ -110,7 +110,6 @@ public class StadiumServiceImpl implements StadiumService{
             throw new IllegalArgumentException("Already has this badge");
         
         trainer.addBadge(b);
-        b.setTrainer(trainer);
         
         badgeService.create(b);
         trainerService.update(trainer);
